@@ -37,6 +37,11 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .card.back{transform:scale(.94) translateY(12px);opacity:.6;pointer-events:none}
 .card .name{font-size:clamp(2rem,10vw,2.8rem);font-weight:700;letter-spacing:-.5px;text-align:center;padding:0 12px;word-break:break-word}
 .card .sub{color:var(--muted);font-size:.95rem}
+.card .meaning{color:var(--text);opacity:.8;font-size:1rem;text-align:center;padding:6px 22px 0;line-height:1.35}
+.rows{display:flex;flex-direction:column;gap:6px}
+.rowitem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.rowitem.match{border-color:var(--like)}
+.rowitem small{display:block;color:var(--muted)}
 .stamp{position:absolute;top:28px;font-weight:800;font-size:1.6rem;border:4px solid;border-radius:10px;padding:2px 10px;opacity:0;transform:rotate(-12deg)}
 .stamp.l{left:22px;color:var(--like)} .stamp.n{right:22px;color:var(--nope);transform:rotate(12deg)}
 .actions{display:flex;justify-content:center;gap:22px;padding:14px 0 18px}
@@ -129,11 +134,8 @@ textarea{resize:vertical;min-height:70px;font-size:.8rem;word-break:break-all}
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="names.js"></script>
 <script>
-/* ---------- Namensliste ----------
-   Beliebig bearbeitbar. Format: Name:Typ (m = Junge, u = neutral) */
-const RAW = `Emil:m,Noah:m,Matteo:m,Leon:m,Elias:m,Finn:m,Paul:m,Ben:m,Henry:m,Luca:m,Theo:m,Felix:m,Jonas:m,Anton:m,Oskar:m,Max:m,Mats:m,Liam:m,Louis:m,Moritz:m,Jakob:m,Lukas:m,Samuel:m,Levi:m,Milan:m,Nico:m,Tim:m,David:m,Julian:m,Fabian:m,Niklas:m,Philipp:m,Simon:m,Johannes:m,Valentin:m,Konrad:m,Karl:m,Ole:m,Piet:m,Jannis:m,Linus:m,Tom:m,Carl:m,Hugo:m,Bruno:m,Arthur:m,Vincent:m,Benedikt:m,Sebastian:m,Alexander:m,Daniel:m,Leo:m,Mika:u,Luan:m,Enzo:m,Rafael:m,Gabriel:m,Adrian:m,Jonathan:m,Maximilian:m,Florian:m,Tobias:m,Jan:m,Erik:m,Nils:m,Till:m,Lennard:m,Joshua:m,Marlon:m,Ferdinand:m,Friedrich:m,August:m,Ludwig:m,Rudolf:m,Emilian:m,Ilias:m,Amir:m,Yusuf:m,Elio:m,Santiago:m,Mateo:m,Lorenz:m,Quentin:m,Raphael:m,Robin:m,Dario:m,Damian:m,Cornelius:m,Titus:m,Justus:m,Bastian:m,Merlin:m,Magnus:m,Gustav:m,Jasper:m,Malte:m,Marlo:m,Wilhelm:m,Otto:m,Tilo:m,Kilian:m,Lasse:m,Fiete:m,Bjarne:m,Lou:u,Sam:u,Kim:u,Alex:u,Noa:u,Jona:u,Charlie:u,Ari:u,Eli:u,Nemo:u,Sascha:u,Toni:u,Jules:u,Maxi:u,Kai:u,Rio:u,Joris:u,Ronin:u,Sasha:u,Lenny:u,Rowan:u,Jo:u,Bela:u,Lian:u,Fin:u,Yuki:u,Luka:u,Kaya:u,Sunny:u,Ravi:u,Cato:u,Ives:u,Indigo:u,Juri:u,Lio:u,Noel:u,Remy:u,Taylor:u,Zeno:u,Eden:u,Elia:u,Ilay:u,Jorin:u,Levin:u,Nilo:u,Oke:u,Paulin:u,Quinn:u,Rene:u,Sunna:u,Tarik:u,Vico:u`;
-
 /* ---------- Firebase (optional) ----------
    Trage hier die Konfiguration aus der Firebase-Konsole ein (Projekteinstellungen → Web-App).
    Solange "apiKey" mit DEIN_ beginnt, läuft die App ohne Live-Sync (Code/Link-Austausch). */
@@ -150,10 +152,10 @@ const FB_ON = !FIREBASE_CONFIG.apiKey.startsWith("DEIN_");
    Alles (Stimmen, Reihenfolge, Vergleich) hängt am Namenstext, nicht an der Listenposition.
    Die Liste darf daher frei bearbeitet werden: Namen hinzufügen, löschen, umsortieren. */
 const NAMES = [], BYNAME = {};
-RAW.split(",").forEach(s => {
-  const [n, g] = s.trim().split(":");
+NAMEDATA.trim().split("\n").forEach(line => {
+  const [n, g, origin = "", meaning = ""] = line.split("|").map(x => x.trim());
   if (!n || BYNAME[n]) return;
-  BYNAME[n] = { n, g }; NAMES.push(BYNAME[n]);
+  BYNAME[n] = { n, g, origin, meaning }; NAMES.push(BYNAME[n]);
 });
 /* Feste Reihenfolge für alle: nach Hash des Namens sortiert (unabhängig von der Liste) */
 function hash(s){ let h = 2166136261; for (const c of s + "|ns1") { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
@@ -231,7 +233,7 @@ function renderStage(){
 }
 function makeCard(n, back){
   const c = document.createElement("div"); c.className = "card" + (back ? " back" : "");
-  c.innerHTML = `<div class="stamp l">GUT</div><div class="stamp n">NEIN</div><div class="name">${esc(n)}</div><div class="sub">${GL[BYNAME[n].g]}</div>`;
+  c.innerHTML = `<div class="stamp l">GUT</div><div class="stamp n">NEIN</div><div class="name">${esc(n)}</div><div class="sub">${esc(BYNAME[n].origin)} · ${GL[BYNAME[n].g]}</div><div class="meaning">${esc(BYNAME[n].meaning)}</div>`;
   return c;
 }
 function vote(n, v, card){
@@ -274,6 +276,7 @@ $("#filters").onclick = e => {
 };
 
 /* ---------- Meine ---------- */
+function rowsHtml(list, cls = ""){ return list.length ? `<div class="rows">${list.map(n => `<div class="rowitem ${cls}"><b>${esc(n)}</b><small>${esc(BYNAME[n].origin)} · ${esc(BYNAME[n].meaning)}</small></div>`).join("")}</div>` : `<p class="hint">Noch nichts.</p>`; }
 function tagsHtml(list, cls = ""){ return list.length ? `<div class="tags">${list.map(n => `<span class="tag ${cls}" data-n="${esc(n)}">${esc(n)}</span>`).join("")}</div>` : `<p class="hint">Noch nichts.</p>`; }
 function renderMine(){
   const by = v => ORDER.filter(n => state.votes[n] === v);
@@ -305,7 +308,7 @@ function showResult(me, pa, mine, pv){
   const cnt = o => Object.keys(o).filter(n => BYNAME[n]).length;
   $("#result").innerHTML = `
     <div class="box"><b>${overlap}</b> Namen von euch beiden bewertet · ${me}: ${cnt(mine)} · ${pa}: ${cnt(pv)}</div>
-    <h2>🎉 Beide mögen (${groups.match.length})</h2>${tagsHtml(groups.match, "match")}
+    <h2>🎉 Beide mögen (${groups.match.length})</h2>${rowsHtml(groups.match, "match")}
     <h2>${me} mag, ${pa} nicht (${groups.iLikePDis.length})</h2>${tagsHtml(groups.iLikePDis)}
     <h2>${pa} mag, ${me} nicht (${groups.pLikeIDis.length})</h2>${tagsHtml(groups.pLikeIDis)}
     <h2>Beide lehnen ab (${groups.bothNo.length})</h2>${tagsHtml(groups.bothNo)}
