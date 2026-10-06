@@ -67,3 +67,5 @@ details summary{cursor:pointer;color:var(--muted);padding:8px 0}
 .auth .box{width:100%;max-width:400px}
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#222;color:#fff;padding:9px 16px;border-radius:99px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
 .toast.on{opacity:1}
+.who{justify-content:center;gap:16px;margin:8px 0}
+.who .chip{width:64px;height:64px;border-radius:50%;font-size:1.6rem;font-weight:700;padding:0}
