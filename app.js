@@ -1,5 +1,5 @@
 'use strict';
-/* Namens-Swipe – Logik. Daten (Namen) stehen in names.js, Datenbankregeln in database.rules.json. */
+/* Wer wird Wombatsi? – Logik. Daten (Namen) stehen in names.js, Datenbankregeln in database.rules.json. */
 
 /* ---------- Firebase-Konfiguration (öffentlich, kein Geheimnis; Schutz erfolgt über die Datenbankregeln) ---------- */
 const FIREBASE_CONFIG = {
@@ -86,8 +86,9 @@ const FIREBASE_CONFIG = {
   function pushVote(n) {
     if (!me || !safeKey(n)) return;
     const r = db.ref(`votes/${me}/${n}`);
-    (state.votes[n] ? r.set(state.votes[n]) : r.remove()).catch(() => toast("Speichern in der Cloud fehlgeschlagen"));
+    (state.votes[n] ? r.set(state.votes[n]) : r.remove()).catch(err => { toast("Speichern in der Cloud fehlgeschlagen"); status(`Speichern fehlgeschlagen (${err.code || "Fehler"}). Sind die neuen Datenbankregeln veröffentlicht?`); });
   }
+  const status = t => { $("#partnerStatus").textContent = t; };
   function detachPartner() {
     if (partnerRef) partnerRef.off();
     partnerRef = null; partnerVotes = null;
@@ -95,10 +96,10 @@ const FIREBASE_CONFIG = {
   function attachPartner() {
     detachPartner();
     const who = otherOf(me);
-    $("#partnerStatus").textContent = `Warte auf Bewertungen von ${PEOPLE[who]} …`;
+    status(`Warte auf Bewertungen von ${PEOPLE[who]} …`);
     partnerRef = db.ref(`votes/${who}`);
     partnerRef.on("value", snap => { partnerVotes = sanitizeVotes(snap.val()); renderResult(); },
-      () => toast("Bewertungen des Partners nicht lesbar (Datenbankregeln gesetzt?)"));
+      err => status(`Bewertungen von ${PEOPLE[who]} nicht lesbar (${err.code || "Fehler"}). Sind die neuen Datenbankregeln veröffentlicht?`));
   }
   async function syncDown() {
     const who = me;
@@ -112,7 +113,7 @@ const FIREBASE_CONFIG = {
       if (Object.keys(upd).length) await db.ref(`votes/${who}`).update(upd);
       renderAll();
     } catch {
-      toast("Cloud-Daten konnten nicht geladen werden (Datenbankregeln gesetzt?)");
+      status("Cloud-Daten konnten nicht geladen werden. Sind die neuen Datenbankregeln veröffentlicht?");
     }
   }
   function switchIdentity(id) {
@@ -276,7 +277,7 @@ const FIREBASE_CONFIG = {
   function renderResult() {
     if (!me || !partnerVotes) return;
     const other = PEOPLE[otherOf(me)];
-    $("#partnerStatus").textContent = `${other} hat ${Object.keys(partnerVotes).length} Namen bewertet. Das Ergebnis aktualisiert sich live.`;
+    status(`${other} hat ${Object.keys(partnerVotes).length} Namen bewertet. Das Ergebnis aktualisiert sich live.`);
     showResult(PEOPLE[me], other, state.votes, partnerVotes);
   }
   function setupCompare() {
