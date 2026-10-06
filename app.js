@@ -11,7 +11,6 @@ const FIREBASE_CONFIG = {
 };
 
 (() => {
-  const FB_ON = typeof firebase !== "undefined";
   const MAX_NAME = 40;
 
   /* ---------- Hilfsfunktionen ---------- */
@@ -54,7 +53,7 @@ const FIREBASE_CONFIG = {
     { id: "kurz", label: "Kurz", test: x => [...x.n].length <= 4 }
   ];
   let pack = "all";
-  try { const p = localStorage.getItem("namenswipe.pack"); if (PACKS.some(x => x.id === p)) pack = p; } catch (e) { /* Speicher nicht verfügbar */ }
+  try { const p = localStorage.getItem("namenswipe.pack"); if (PACKS.some(x => x.id === p)) pack = p; } catch { /* Speicher nicht verfügbar */ }
   const inPack = (n, id) => PACKS.find(p => p.id === id).test(BYNAME[n]);
 
   /* ---------- Zustand (pro Konto getrennt gespeichert) ---------- */
@@ -70,12 +69,12 @@ const FIREBASE_CONFIG = {
       const o = JSON.parse(localStorage.getItem("namenswipe.v3." + id) || "{}");
       s.votes = sanitizeVotes(o.votes);
       s.history = Array.isArray(o.history) ? o.history.filter(n => BYNAME[n] && s.votes[n]).slice(-500) : [];
-    } catch (e) { /* kaputte Daten ignorieren */ }
+    } catch { /* kaputte Daten ignorieren */ }
     return s;
   }
   let identity = "local";
   let state = loadState(identity);
-  function save() { try { localStorage.setItem("namenswipe.v3." + identity, JSON.stringify(state)); } catch (e) { /* Speicher voll/gesperrt */ } }
+  function save() { try { localStorage.setItem("namenswipe.v3." + identity, JSON.stringify(state)); } catch { /* Speicher voll/gesperrt */ } }
 
   /* ---------- Firebase (zwei feste Konten: Vroni und Felix) ---------- */
   const PEOPLE = { vroni: "Vroni", felix: "Felix" };
@@ -112,7 +111,7 @@ const FIREBASE_CONFIG = {
       state.votes = merged; state.history = state.history.filter(n => state.votes[n]); save();
       if (Object.keys(upd).length) await db.ref(`votes/${who}`).update(upd);
       renderAll();
-    } catch (e) {
+    } catch {
       toast("Cloud-Daten konnten nicht geladen werden (Datenbankregeln gesetzt?)");
     }
   }
@@ -218,7 +217,7 @@ const FIREBASE_CONFIG = {
   $("#packs").onclick = e => {
     const b = e.target.closest(".chip"); if (!b) return;
     pack = b.dataset.p;
-    try { localStorage.setItem("namenswipe.pack", pack); } catch (err) { /* egal */ }
+    try { localStorage.setItem("namenswipe.pack", pack); } catch { /* egal */ }
     renderStage();
   };
 
