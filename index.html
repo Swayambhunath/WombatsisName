@@ -96,126 +96,174 @@ textarea{resize:vertical;min-height:70px;font-size:.8rem;word-break:break-all}
     <div class="box">
       <label for="myName">Dein Name</label>
       <input id="myName" placeholder="z.B. Felix" autocomplete="off">
-      <h2 style="margin-top:14px">Dein Code</h2>
-      <textarea id="myCode" readonly></textarea>
-      <div class="row">
-        <button class="btn" id="copyLink">Link kopieren</button>
-        <button class="btn ghost" id="copyCode">Nur Code kopieren</button>
-      </div>
-      <p class="hint">Schick deinem Partner den Link oder Code. Eure Ergebnisse bleiben nur auf euren Geräten, es gibt keinen Server.</p>
     </div>
-    <div class="box">
-      <label for="pName">Name des Partners</label>
-      <input id="pName" placeholder="z.B. Anna" autocomplete="off">
-      <label for="pCode" style="margin-top:10px">Code oder Link vom Partner</label>
-      <textarea id="pCode" placeholder="Hier einfügen …"></textarea>
-      <button class="btn" id="doCompare">Vergleichen</button>
+    <div class="box" id="fbBox">
+      <label for="room">Raum-Code (gleicher Code bei euch beiden, geheim halten)</label>
+      <input id="room" placeholder="z.B. felix-anna-4711" autocomplete="off">
+      <button class="btn" id="join">Verbinden</button>
+      <p class="hint" id="roomStatus">Nicht verbunden.</p>
+      <p class="hint">Eure Bewertungen werden live synchronisiert, das Ergebnis aktualisiert sich automatisch.</p>
+    </div>
+    <div id="manualBox">
+      <div class="box">
+        <h2 style="margin-top:0">Dein Code</h2>
+        <textarea id="myCode" readonly></textarea>
+        <div class="row">
+          <button class="btn" id="copyLink">Link kopieren</button>
+          <button class="btn ghost" id="copyCode">Nur Code kopieren</button>
+        </div>
+        <p class="hint">Schick deinem Partner den Link oder Code. Ohne Firebase bleiben die Ergebnisse nur auf euren Geräten.</p>
+      </div>
+      <div class="box">
+        <label for="pName">Name des Partners</label>
+        <input id="pName" placeholder="z.B. Anna" autocomplete="off">
+        <label for="pCode" style="margin-top:10px">Code oder Link vom Partner</label>
+        <textarea id="pCode" placeholder="Hier einfügen …"></textarea>
+        <button class="btn" id="doCompare">Vergleichen</button>
+      </div>
     </div>
     <div id="result"></div>
   </div></section>
 </main>
 <div class="toast" id="toast"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
 /* ---------- Namensliste ----------
-   WICHTIG: Reihenfolge nie ändern und nur hinten anhängen, sonst passen
-   gespeicherte Codes nicht mehr zusammen. Format: Name:Typ (m/f/u) */
+   Beliebig bearbeitbar. Format: Name:Typ (m = Junge, u = neutral) */
 const RAW = `Emil:m,Noah:m,Matteo:m,Leon:m,Elias:m,Finn:m,Paul:m,Ben:m,Henry:m,Luca:m,Theo:m,Felix:m,Jonas:m,Anton:m,Oskar:m,Max:m,Mats:m,Liam:m,Louis:m,Moritz:m,Jakob:m,Lukas:m,Samuel:m,Levi:m,Milan:m,Nico:m,Tim:m,David:m,Julian:m,Fabian:m,Niklas:m,Philipp:m,Simon:m,Johannes:m,Valentin:m,Konrad:m,Karl:m,Ole:m,Piet:m,Jannis:m,Linus:m,Tom:m,Carl:m,Hugo:m,Bruno:m,Arthur:m,Vincent:m,Benedikt:m,Sebastian:m,Alexander:m,Daniel:m,Leo:m,Mika:u,Luan:m,Enzo:m,Rafael:m,Gabriel:m,Adrian:m,Jonathan:m,Maximilian:m,Florian:m,Tobias:m,Jan:m,Erik:m,Nils:m,Till:m,Lennard:m,Joshua:m,Marlon:m,Ferdinand:m,Friedrich:m,August:m,Ludwig:m,Rudolf:m,Emilian:m,Ilias:m,Amir:m,Yusuf:m,Elio:m,Santiago:m,Mateo:m,Lorenz:m,Quentin:m,Raphael:m,Robin:m,Dario:m,Damian:m,Cornelius:m,Titus:m,Justus:m,Bastian:m,Merlin:m,Magnus:m,Gustav:m,Jasper:m,Malte:m,Marlo:m,Wilhelm:m,Otto:m,Tilo:m,Kilian:m,Lasse:m,Fiete:m,Bjarne:m,Lou:u,Sam:u,Kim:u,Alex:u,Noa:u,Jona:u,Charlie:u,Ari:u,Eli:u,Nemo:u,Sascha:u,Toni:u,Jules:u,Maxi:u,Kai:u,Rio:u,Joris:u,Ronin:u,Sasha:u,Lenny:u,Rowan:u,Jo:u,Bela:u,Lian:u,Fin:u,Yuki:u,Luka:u,Kaya:u,Sunny:u,Ravi:u,Cato:u,Ives:u,Indigo:u,Juri:u,Lio:u,Noel:u,Remy:u,Taylor:u,Zeno:u,Eden:u,Elia:u,Ilay:u,Jorin:u,Levin:u,Nilo:u,Oke:u,Paulin:u,Quinn:u,Rene:u,Sunna:u,Tarik:u,Vico:u`;
 
-const NAMES = [];
+/* ---------- Firebase (optional) ----------
+   Trage hier die Konfiguration aus der Firebase-Konsole ein (Projekteinstellungen → Web-App).
+   Solange "apiKey" mit DEIN_ beginnt, läuft die App ohne Live-Sync (Code/Link-Austausch). */
+const FIREBASE_CONFIG = {
+  apiKey: "DEIN_API_KEY",
+  authDomain: "DEIN_PROJEKT.firebaseapp.com",
+  databaseURL: "https://DEIN_PROJEKT-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "DEIN_PROJEKT",
+  appId: "DEIN_APP_ID"
+};
+const FB_ON = !FIREBASE_CONFIG.apiKey.startsWith("DEIN_");
+
+/* ---------- Namen ----------
+   Alles (Stimmen, Reihenfolge, Vergleich) hängt am Namenstext, nicht an der Listenposition.
+   Die Liste darf daher frei bearbeitet werden: Namen hinzufügen, löschen, umsortieren. */
+const NAMES = [], BYNAME = {};
 RAW.split(",").forEach(s => {
   const [n, g] = s.trim().split(":");
-  NAMES.push({ n, g, i: NAMES.length });
+  if (!n || BYNAME[n]) return;
+  BYNAME[n] = { n, g }; NAMES.push(BYNAME[n]);
 });
-const LIST_VER = "1";
-
-/* Feste Reihenfolge (für beide gleich): seeded shuffle */
-function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-const ORDER = NAMES.map(x => x.i);
-{ const r = mulberry(20240607); for (let i = ORDER.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [ORDER[i], ORDER[j]] = [ORDER[j], ORDER[i]]; } }
+/* Feste Reihenfolge für alle: nach Hash des Namens sortiert (unabhängig von der Liste) */
+function hash(s){ let h = 2166136261; for (const c of s + "|ns1") { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+const ORDER = NAMES.map(x => x.n).sort((a, b) => hash(a) - hash(b));
 
 /* ---------- Zustand ---------- */
-const LS = "namenswipe.v1";
-let state = { votes: {}, myName: "", pName: "", pCode: "", history: [] };   // votes[i] = 1 gefällt, 2 nicht
+const LS = "namenswipe.v2";
+let state = { votes: {}, myName: "", room: "", pName: "", pCode: "", history: [] };   // votes[name] = 1 gefällt, 2 nicht
 try { Object.assign(state, JSON.parse(localStorage.getItem(LS) || "{}")); } catch (e) {}
 const save = () => { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} };
 let gender = "all";
 
 const $ = s => document.querySelector(s);
-const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1600)}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1800)}
 
-/* ---------- Code (2 Bit pro Name) ---------- */
+/* ---------- Code zum Austausch ohne Firebase ---------- */
+const b64 = s => btoa(String.fromCharCode(...new TextEncoder().encode(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const unb64 = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0)));
 function encode(votes){
-  const bytes = new Uint8Array(Math.ceil(NAMES.length / 4));
-  for (let i = 0; i < NAMES.length; i++) bytes[i >> 2] |= (votes[i] || 0) << ((i & 3) * 2);
-  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
-  return LIST_VER + "." + btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const l = [], d = [];
+  for (const n in votes) (votes[n] === 1 ? l : d).push(n);
+  return "2." + b64(JSON.stringify({ l, d }));
 }
 function decode(code){
   code = code.trim();
   const m = code.match(/[#&?]p=([^&\s]+)/); if (m) code = decodeURIComponent(m[1]);
   const [v, d] = code.split(".");
-  if (v !== LIST_VER || !d) throw new Error("Code passt nicht (andere Namensliste?)");
-  const bin = atob(d.replace(/-/g, "+").replace(/_/g, "/"));
-  const votes = {};
-  for (let i = 0; i < NAMES.length; i++) { const b = bin.charCodeAt(i >> 2); if (isNaN(b)) break; const x = (b >> ((i & 3) * 2)) & 3; if (x === 1 || x === 2) votes[i] = x; }
+  if (v !== "2" || !d) throw new Error("Ungültiger Code");
+  const o = JSON.parse(unb64(d)), votes = {};
+  (o.l || []).forEach(n => votes[n] = 1); (o.d || []).forEach(n => votes[n] = 2);
   return votes;
 }
 
+/* ---------- Live-Sync ---------- */
+const fbKey = s => s.trim().replace(/[.#$\[\]\/]/g, "_");
+let db = null, myRef = null, roomRef = null, others = {};
+function fbInit(){
+  if (db || !FB_ON) return !!db;
+  try { firebase.initializeApp(FIREBASE_CONFIG); db = firebase.database(); } catch (e) { console.error(e); toast("Firebase-Fehler: " + e.message); }
+  return !!db;
+}
+function joinRoom(){
+  const room = fbKey(state.room), me = fbKey(state.myName);
+  if (!room || !me) return toast("Bitte Raum-Code und deinen Namen eintragen");
+  if (!fbInit()) return;
+  if (roomRef) roomRef.off();
+  roomRef = db.ref("rooms/" + room); myRef = roomRef.child(me);
+  myRef.update(state.votes).catch(e => toast("Schreiben fehlgeschlagen: " + e.message));   // bisherige Stimmen hochladen
+  $("#roomStatus").textContent = "Verbinde …";
+  roomRef.on("value", snap => {
+    const all = snap.val() || {}; others = {};
+    for (const k in all) if (k !== me) others[k] = all[k];
+    renderResult(); $("#roomStatus").textContent = `✅ Verbunden mit Raum „${room}“ · ${Object.keys(others).length ? "Partner: " + Object.keys(others).join(", ") : "Warte auf Partner …"}`;
+  }, e => toast("Lesen fehlgeschlagen: " + e.message));
+}
+function pushVote(n){ if (myRef) (state.votes[n] ? myRef.child(n).set(state.votes[n]) : myRef.child(n).remove()).catch(() => {}); }
+
 /* ---------- Swipen ---------- */
 const GL = { m: "Junge", u: "neutral" };
-const pool = () => ORDER.filter(i => gender === "all" || NAMES[i].g === gender);
-const queue = () => pool().filter(i => !state.votes[i]);
+const pool = () => ORDER.filter(n => gender === "all" || BYNAME[n].g === gender);
+const queue = () => pool().filter(n => !state.votes[n]);
 
 function renderStage(){
   const q = queue(), st = $("#stage"), total = pool().length;
   const done = total - q.length;
   $("#prog").style.width = (total ? done / total * 100 : 0) + "%";
   $("#progTxt").textContent = `${done} von ${total} bewertet`;
-  const likes = Object.values(state.votes).filter(v => v === 1).length;
-  $("#countTxt").textContent = `💚 ${likes}`;
+  $("#countTxt").textContent = `💚 ${Object.values(state.votes).filter(v => v === 1).length}`;
   st.innerHTML = "";
   if (!q.length) { st.innerHTML = `<div class="empty">🎉 Alle Namen in dieser Auswahl bewertet!<br>Schau bei „Vergleich“ nach Übereinstimmungen.</div>`; return; }
   if (q[1] !== undefined) st.appendChild(makeCard(q[1], true));
   st.appendChild(makeCard(q[0], false));
   attachDrag(st.lastChild, q[0]);
 }
-function makeCard(i, back){
+function makeCard(n, back){
   const c = document.createElement("div"); c.className = "card" + (back ? " back" : "");
-  c.innerHTML = `<div class="stamp l">GUT</div><div class="stamp n">NEIN</div><div class="name">${esc(NAMES[i].n)}</div><div class="sub">${GL[NAMES[i].g]}</div>`;
+  c.innerHTML = `<div class="stamp l">GUT</div><div class="stamp n">NEIN</div><div class="name">${esc(n)}</div><div class="sub">${GL[BYNAME[n].g]}</div>`;
   return c;
 }
-function vote(i, v, card){
-  state.votes[i] = v; state.history.push(i); if (state.history.length > 500) state.history.shift();
-  save();
+function vote(n, v, card){
+  state.votes[n] = v; state.history.push(n); if (state.history.length > 500) state.history.shift();
+  save(); pushVote(n);
   if (card) {
     card.style.transition = "transform .25s, opacity .25s";
     card.style.transform = `translate(${v === 1 ? 600 : -600}px,0) rotate(${v === 1 ? 30 : -30}deg)`; card.style.opacity = 0;
     setTimeout(renderStage, 200);
   } else renderStage();
 }
-function attachDrag(card, i){
+function attachDrag(card, n){
   let sx = 0, sy = 0, dx = 0, drag = false;
-  const l = card.querySelector(".stamp.l"), n = card.querySelector(".stamp.n");
+  const l = card.querySelector(".stamp.l"), nn = card.querySelector(".stamp.n");
   card.addEventListener("pointerdown", e => { drag = true; sx = e.clientX; sy = e.clientY; card.setPointerCapture(e.pointerId); card.style.transition = "none"; });
   card.addEventListener("pointermove", e => {
     if (!drag) return; dx = e.clientX - sx;
     card.style.transform = `translate(${dx}px,${(e.clientY - sy) * .3}px) rotate(${dx / 15}deg)`;
-    l.style.opacity = Math.max(0, Math.min(1, dx / 100)); n.style.opacity = Math.max(0, Math.min(1, -dx / 100));
+    l.style.opacity = Math.max(0, Math.min(1, dx / 100)); nn.style.opacity = Math.max(0, Math.min(1, -dx / 100));
   });
   const end = () => {
     if (!drag) return; drag = false;
-    if (dx > 100) vote(i, 1, card); else if (dx < -100) vote(i, 2, card);
-    else { card.style.transition = "transform .2s"; card.style.transform = ""; l.style.opacity = n.style.opacity = 0; }
+    if (dx > 100) vote(n, 1, card); else if (dx < -100) vote(n, 2, card);
+    else { card.style.transition = "transform .2s"; card.style.transform = ""; l.style.opacity = nn.style.opacity = 0; }
     dx = 0;
   };
   card.addEventListener("pointerup", end); card.addEventListener("pointercancel", end);
 }
 const cur = () => queue()[0];
-$("#bLike").onclick = () => { const i = cur(); if (i !== undefined) vote(i, 1, $("#stage .card:last-child")); };
-$("#bNope").onclick = () => { const i = cur(); if (i !== undefined) vote(i, 2, $("#stage .card:last-child")); };
-$("#bUndo").onclick = () => { const i = state.history.pop(); if (i === undefined) return toast("Nichts zum Zurücknehmen"); delete state.votes[i]; save(); renderStage(); };
+$("#bLike").onclick = () => { const n = cur(); if (n !== undefined) vote(n, 1, $("#stage .card:last-child")); };
+$("#bNope").onclick = () => { const n = cur(); if (n !== undefined) vote(n, 2, $("#stage .card:last-child")); };
+$("#bUndo").onclick = () => { const n = state.history.pop(); if (n === undefined) return toast("Nichts zum Zurücknehmen"); delete state.votes[n]; save(); pushVote(n); renderStage(); };
 document.addEventListener("keydown", e => {
   if (!$("#v-swipe").classList.contains("on") || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if (e.key === "ArrowRight") $("#bLike").click(); else if (e.key === "ArrowLeft") $("#bNope").click(); else if (e.key === "Backspace") $("#bUndo").click();
@@ -226,52 +274,68 @@ $("#filters").onclick = e => {
 };
 
 /* ---------- Meine ---------- */
-function tagsHtml(list, cls = ""){ return list.length ? `<div class="tags">${list.map(i => `<span class="tag ${cls}" data-i="${i}">${esc(NAMES[i].n)}</span>`).join("")}</div>` : `<p class="hint">Noch nichts.</p>`; }
+function tagsHtml(list, cls = ""){ return list.length ? `<div class="tags">${list.map(n => `<span class="tag ${cls}" data-n="${esc(n)}">${esc(n)}</span>`).join("")}</div>` : `<p class="hint">Noch nichts.</p>`; }
 function renderMine(){
-  const by = v => ORDER.filter(i => state.votes[i] === v);
+  const by = v => ORDER.filter(n => state.votes[n] === v);
   const L = by(1), D = by(2);
   $("#mineBody").innerHTML = `<h2>💚 Gefällt mir (${L.length})</h2>${tagsHtml(L)}<h2>✖️ Gefällt nicht (${D.length})</h2>${tagsHtml(D)}
     <p class="hint">Tippe einen Namen an, um ihn auf die Gegenseite zu verschieben.</p>
     <button class="btn ghost" id="reset" style="margin-top:20px">Alles zurücksetzen</button>`;
-  $("#reset").onclick = () => { if (confirm("Wirklich alle Bewertungen löschen?")) { state.votes = {}; state.history = []; save(); renderMine(); renderStage(); } };
+  $("#reset").onclick = () => { if (confirm("Wirklich alle Bewertungen löschen?")) { const old = Object.keys(state.votes); state.votes = {}; state.history = []; save(); old.forEach(pushVote); renderMine(); renderStage(); } };
 }
 $("#mineBody").onclick = e => {
   const t = e.target.closest(".tag"); if (!t) return;
-  const i = +t.dataset.i; state.votes[i] = state.votes[i] === 1 ? 2 : 1; save(); renderMine();
+  const n = t.dataset.n; state.votes[n] = state.votes[n] === 1 ? 2 : 1; save(); pushVote(n); renderMine();
 };
 
 /* ---------- Vergleich ---------- */
-function myCode(){ return encode(state.votes); }
-function link(){ return location.href.split("#")[0] + "#p=" + myCode(); }
-function refreshCode(){ $("#myCode").value = myCode(); }
-async function copy(txt){ try { await navigator.clipboard.writeText(txt); toast("Kopiert ✓"); } catch (e) { toast("Kopieren nicht möglich – bitte manuell markieren"); } }
-$("#copyLink").onclick = () => copy(link());
-$("#copyCode").onclick = () => copy(myCode());
-$("#myName").oninput = e => { state.myName = e.target.value; save(); };
-$("#pName").oninput = e => { state.pName = e.target.value; save(); };
-$("#pCode").oninput = e => { state.pCode = e.target.value; save(); };
-$("#doCompare").onclick = () => {
-  let pv; try { pv = decode($("#pCode").value); } catch (err) { return toast(err.message || "Ungültiger Code"); }
-  const me = esc(state.myName || "Du"), pa = esc(state.pName || "Partner");
-  const mine = state.votes, groups = { match: [], iLikePDis: [], pLikeIDis: [], bothNo: [], open: [] };
+function showResult(me, pa, mine, pv){
+  const groups = { match: [], iLikePDis: [], pLikeIDis: [], bothNo: [], open: [] };
   let overlap = 0;
-  ORDER.forEach(i => {
-    const a = mine[i], b = pv[i];
-    if (!a || !b) { if (a === 1 || b === 1) groups.open.push(i); return; }
+  ORDER.forEach(n => {
+    const a = mine[n], b = pv[n];
+    if (!a || !b) { if (a === 1 || b === 1) groups.open.push(n); return; }
     overlap++;
-    if (a === 1 && b === 1) groups.match.push(i);
-    else if (a === 1) groups.iLikePDis.push(i);
-    else if (b === 1) groups.pLikeIDis.push(i);
-    else groups.bothNo.push(i);
+    if (a === 1 && b === 1) groups.match.push(n);
+    else if (a === 1) groups.iLikePDis.push(n);
+    else if (b === 1) groups.pLikeIDis.push(n);
+    else groups.bothNo.push(n);
   });
-  const pTotal = Object.keys(pv).length, mTotal = Object.keys(mine).length;
+  me = esc(me); pa = esc(pa);
+  const cnt = o => Object.keys(o).filter(n => BYNAME[n]).length;
   $("#result").innerHTML = `
-    <div class="box"><b>${overlap}</b> Namen von euch beiden bewertet · ${me}: ${mTotal} · ${pa}: ${pTotal}</div>
+    <div class="box"><b>${overlap}</b> Namen von euch beiden bewertet · ${me}: ${cnt(mine)} · ${pa}: ${cnt(pv)}</div>
     <h2>🎉 Beide mögen (${groups.match.length})</h2>${tagsHtml(groups.match, "match")}
     <h2>${me} mag, ${pa} nicht (${groups.iLikePDis.length})</h2>${tagsHtml(groups.iLikePDis)}
     <h2>${pa} mag, ${me} nicht (${groups.pLikeIDis.length})</h2>${tagsHtml(groups.pLikeIDis)}
     <h2>Beide lehnen ab (${groups.bothNo.length})</h2>${tagsHtml(groups.bothNo)}
     ${groups.open.length ? `<h2>Nur einer hat bewertet, gefällt (${groups.open.length})</h2>${tagsHtml(groups.open)}` : ""}`;
+}
+function renderResult(){
+  if (FB_ON && roomRef) {
+    const k = Object.keys(others).sort()[0];
+    if (!k) { $("#result").innerHTML = ""; return; }
+    showResult(state.myName || "Du", k, state.votes, others[k]);
+  }
+}
+async function copy(txt){ try { await navigator.clipboard.writeText(txt); toast("Kopiert ✓"); } catch (e) { toast("Kopieren nicht möglich – bitte manuell markieren"); } }
+const myCode = () => encode(state.votes), link = () => location.href.split("#")[0] + "#p=" + myCode();
+function setupCompare(){
+  $("#fbBox").style.display = FB_ON ? "" : "none";
+  $("#manualBox").style.display = FB_ON ? "none" : "";
+  $("#myCode").value = myCode();
+  $("#myName").value = state.myName; $("#room").value = state.room; $("#pName").value = state.pName; $("#pCode").value = state.pCode;
+}
+$("#copyLink").onclick = () => copy(link());
+$("#copyCode").onclick = () => copy(myCode());
+$("#myName").oninput = e => { state.myName = e.target.value; save(); };
+$("#room").oninput = e => { state.room = e.target.value; save(); };
+$("#pName").oninput = e => { state.pName = e.target.value; save(); };
+$("#pCode").oninput = e => { state.pCode = e.target.value; save(); };
+$("#join").onclick = joinRoom;
+$("#doCompare").onclick = () => {
+  let pv; try { pv = decode($("#pCode").value); } catch (err) { return toast(err.message || "Ungültiger Code"); }
+  showResult(state.myName || "Du", state.pName || "Partner", state.votes, pv);
   $("#result").scrollIntoView({ behavior: "smooth" });
 };
 
@@ -279,14 +343,14 @@ $("#doCompare").onclick = () => {
 function show(v){
   document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.v === v));
   document.querySelectorAll(".view").forEach(s => s.classList.toggle("on", s.id === "v-" + v));
-  if (v === "mine") renderMine(); if (v === "compare") refreshCode(); if (v === "swipe") renderStage();
+  if (v === "mine") renderMine(); if (v === "compare") setupCompare(); if (v === "swipe") renderStage();
 }
 document.querySelector("nav").onclick = e => { const b = e.target.closest("button"); if (b) show(b.dataset.v); };
 
 /* ---------- Start ---------- */
-$("#myName").value = state.myName; $("#pName").value = state.pName; $("#pCode").value = state.pCode;
+if (FB_ON && state.room && state.myName) joinRoom();
 const m = location.hash.match(/p=([^&]+)/);
-if (m) { $("#pCode").value = state.pCode = decodeURIComponent(m[1]); save(); history.replaceState(null, "", location.pathname + location.search); show("compare"); toast("Code vom Partner geladen – Namen eintragen & vergleichen"); }
+if (m) { state.pCode = decodeURIComponent(m[1]); save(); history.replaceState(null, "", location.pathname + location.search); show("compare"); toast("Code vom Partner geladen – Namen eintragen & vergleichen"); }
 else renderStage();
 </script>
 </body>
