@@ -12,7 +12,7 @@ const FIREBASE_CONFIG = {
 
 (() => {
   const FB_ON = typeof firebase !== "undefined";
-  const MAX_NAME = 40, MIN_ROOM = 6, MAX_ROOM = 60;
+  const MAX_NAME = 40;
 
   /* ---------- Hilfsfunktionen ---------- */
   const $ = s => document.querySelector(s);
@@ -58,9 +58,8 @@ const FIREBASE_CONFIG = {
   const inPack = (n, id) => PACKS.find(p => p.id === id).test(BYNAME[n]);
 
   /* ---------- Zustand (pro Konto getrennt gespeichert) ---------- */
-  const blank = () => ({ votes: {}, history: [], myName: "", room: "", pName: "", pCode: "" });
-  const str = (v, max) => (typeof v === "string" ? v.slice(0, max) : "");
-  function sanitizeVotes(v) {
+  const blank = () => ({ votes: {}, history: [] });
+    function sanitizeVotes(v) {
     const out = {};
     if (v && typeof v === "object") for (const n of Object.keys(v)) if (BYNAME[n] && (v[n] === 1 || v[n] === 2)) out[n] = v[n];
     return out;
@@ -68,13 +67,9 @@ const FIREBASE_CONFIG = {
   function loadState(id) {
     const s = blank();
     try {
-      let raw = localStorage.getItem("namenswipe.v3." + id);
-      if (!raw && id === "local") raw = localStorage.getItem("namenswipe.v2");   // Übernahme alter Version
-      const o = JSON.parse(raw || "{}");
+      const o = JSON.parse(localStorage.getItem("namenswipe.v3." + id) || "{}");
       s.votes = sanitizeVotes(o.votes);
       s.history = Array.isArray(o.history) ? o.history.filter(n => BYNAME[n] && s.votes[n]).slice(-500) : [];
-      s.myName = str(o.myName, MAX_NAME); s.room = str(o.room, MAX_ROOM);
-      s.pName = str(o.pName, MAX_NAME); s.pCode = str(o.pCode, 20000);
     } catch (e) { /* kaputte Daten ignorieren */ }
     return s;
   }
@@ -82,130 +77,70 @@ const FIREBASE_CONFIG = {
   let state = loadState(identity);
   function save() { try { localStorage.setItem("namenswipe.v3." + identity, JSON.stringify(state)); } catch (e) { /* Speicher voll/gesperrt */ } }
 
-  /* ---------- Firebase ---------- */
-  let auth = null, db = null, user = null;
-  let membersRef = null, partnerRef = null, partnerUid = null, partnerVotes = null, members = {}, mySlot = null;
+  /* ---------- Firebase (zwei feste Konten: Vroni und Felix) ---------- */
+  const PEOPLE = { vroni: "Vroni", felix: "Felix" };
+  const emailOf = who => who + "@namenswipe.invalid";
+  const whoOf = u => Object.keys(PEOPLE).find(w => emailOf(w) === (u && u.email)) || null;
+  const otherOf = who => (who === "vroni" ? "felix" : "vroni");
+  let auth = null, db = null, me = null, partnerRef = null, partnerVotes = null;
 
-  function userRef(path) { return db.ref("users/" + user.uid + (path ? "/" + path : "")); }
   function pushVote(n) {
-    if (!user || !safeKey(n)) return;
-    const r = userRef("votes/" + n);
+    if (!me || !safeKey(n)) return;
+    const r = db.ref(`votes/${me}/${n}`);
     (state.votes[n] ? r.set(state.votes[n]) : r.remove()).catch(() => toast("Speichern in der Cloud fehlgeschlagen"));
   }
-  function detachRoom() {
-    if (membersRef) membersRef.off(); if (partnerRef) partnerRef.off();
-    membersRef = partnerRef = null; partnerUid = null; partnerVotes = null; members = {}; mySlot = null;
-  }
-  const roomKey = s => s.trim().toLowerCase().replace(/[^a-z0-9äöüß_-]/g, "-").slice(0, MAX_ROOM);
-
-  function setRoomUi(connected, text) {
-    $("#leave").hidden = !connected;
-    $("#roomStatus").textContent = text;
-  }
-  async function joinRoom(code, silent) {
-    const room = roomKey(code);
-    if (!user) return;
-    if (room.length < MIN_ROOM) return silent || toast(`Raum-Code: mindestens ${MIN_ROOM} Zeichen`);
-    detachRoom();
-    const name = state.myName.trim().slice(0, MAX_NAME) || "Partner";
-    setRoomUi(false, "Verbinde …");
-    const slot = s => db.ref(`rooms/${room}/${s}`).set({ uid: user.uid, name });
-    try {
-      await userRef().update({ room, name });
-      try { await slot("p1"); } catch (e) { await slot("p2"); }   // zwei Plätze pro Raum
-    } catch (e) {
-      userRef("room").remove().catch(() => {});
-      setRoomUi(false, "Nicht verbunden.");
-      return toast("Verbinden fehlgeschlagen (Raum evtl. schon voll?)");
-    }
-    state.room = room; save(); $("#room").value = room;
-    membersRef = db.ref(`rooms/${room}`);
-    membersRef.on("value", snap => {
-      const v = snap.val() || {};
-      members = {}; mySlot = null;
-      for (const s of ["p1", "p2"]) if (v[s] && typeof v[s].uid === "string") { members[v[s].uid] = str(v[s].name, MAX_NAME); if (v[s].uid === user.uid) mySlot = s; }
-      const pid = Object.keys(members).find(k => k !== user.uid) || null;
-      attachPartner(pid);
-      setRoomUi(true, `Verbunden mit Raum „${room}“ · ${pid ? "Partner: " + (members[pid] || "Partner") : "Warte auf Partner …"}`);
-      renderResult();
-    }, () => toast("Raum konnte nicht gelesen werden"));
-  }
-  function attachPartner(pid) {
-    if (pid === partnerUid) return;
+  function detachPartner() {
     if (partnerRef) partnerRef.off();
-    partnerRef = null; partnerUid = pid; partnerVotes = null;
-    if (!pid) return;
-    partnerRef = db.ref(`users/${pid}/votes`);
-    partnerRef.on("value", snap => { partnerVotes = sanitizeVotes(snap.val()); renderResult(); }, () => toast("Bewertungen des Partners nicht lesbar"));
+    partnerRef = null; partnerVotes = null;
   }
-  async function leaveRoom() {
-    const room = state.room, slot = mySlot;
-    detachRoom();
-    if (user && room) {
-      if (slot) await db.ref(`rooms/${room}/${slot}`).remove().catch(() => {});
-      await userRef("room").remove().catch(() => {});
-    }
-    state.room = ""; save(); $("#room").value = ""; setRoomUi(false, "Nicht verbunden."); $("#result").replaceChildren();
+  function attachPartner() {
+    detachPartner();
+    const who = otherOf(me);
+    $("#partnerStatus").textContent = `Warte auf Bewertungen von ${PEOPLE[who]} …`;
+    partnerRef = db.ref(`votes/${who}`);
+    partnerRef.on("value", snap => { partnerVotes = sanitizeVotes(snap.val()); renderResult(); },
+      () => toast("Bewertungen des Partners nicht lesbar (Datenbankregeln gesetzt?)"));
   }
-
   async function syncDown() {
-    const u = user;
+    const who = me;
     try {
-      const v = (await userRef().once("value")).val() || {};
-      if (user !== u) return;
-      const cloud = sanitizeVotes(v.votes);
-      if (!Object.keys(cloud).length) {
-        const guest = loadState("local");
-        if (Object.keys(guest.votes).length && confirm("Auf diesem Gerät gibt es Bewertungen ohne Konto. In dein Konto übernehmen?")) Object.assign(state.votes, guest.votes);
-      }
+      const cloud = sanitizeVotes((await db.ref(`votes/${who}`).once("value")).val());
+      if (me !== who) return;
       const merged = Object.assign({}, state.votes, cloud);     // Cloud hat bei Konflikten Vorrang
       const upd = {};
-      for (const n in merged) if (cloud[n] !== merged[n]) upd["votes/" + n] = merged[n];
-      state.votes = merged;
-      state.history = state.history.filter(n => state.votes[n]);
-      if (!state.myName) state.myName = str(v.name, MAX_NAME) || str(u.displayName, MAX_NAME) || str((u.email || "").split("@")[0], MAX_NAME);
-      if (str(v.name, MAX_NAME) !== state.myName.slice(0, MAX_NAME)) upd.name = state.myName.slice(0, MAX_NAME);
-      save();
-      if (Object.keys(upd).length) await userRef().update(upd);
+      for (const n in merged) if (cloud[n] !== merged[n]) upd[n] = merged[n];
+      state.votes = merged; state.history = state.history.filter(n => state.votes[n]); save();
+      if (Object.keys(upd).length) await db.ref(`votes/${who}`).update(upd);
       renderAll();
-      const room = str(v.room, MAX_ROOM) || state.room;
-      if (room) joinRoom(room, true);
     } catch (e) {
       toast("Cloud-Daten konnten nicht geladen werden (Datenbankregeln gesetzt?)");
     }
   }
-
   function switchIdentity(id) {
-    detachRoom();
+    detachPartner();
     identity = id; state = loadState(id);
     $("#result").replaceChildren();
-    setRoomUi(false, "Nicht verbunden.");
     renderAll();
   }
 
   /* ---------- Login ---------- */
   const AUTH_ERR = {
-    "auth/invalid-email": "Ungültige E-Mail-Adresse.",
-    "auth/missing-password": "Bitte ein Passwort eingeben.",
-    "auth/weak-password": "Passwort zu schwach (mindestens 6 Zeichen).",
-    "auth/email-already-in-use": "Für diese E-Mail gibt es schon ein Konto.",
-    "auth/invalid-credential": "E-Mail oder Passwort falsch.",
-    "auth/wrong-password": "E-Mail oder Passwort falsch.",
-    "auth/user-not-found": "E-Mail oder Passwort falsch.",
+    "auth/invalid-credential": "Passwort falsch.",
+    "auth/wrong-password": "Passwort falsch.",
+    "auth/invalid-login-credentials": "Passwort falsch.",
+    "auth/user-not-found": "Dieses Konto existiert in Firebase noch nicht.",
     "auth/too-many-requests": "Zu viele Versuche. Bitte später erneut probieren.",
     "auth/network-request-failed": "Keine Verbindung.",
-    "auth/popup-closed-by-user": "Anmeldung abgebrochen.",
-    "auth/operation-not-allowed": "Diese Anmeldeart ist in Firebase noch nicht aktiviert.",
-    "auth/unauthorized-domain": "Diese Domain ist in Firebase nicht als autorisiert eingetragen."
+    "auth/operation-not-allowed": "E-Mail/Passwort ist in Firebase noch nicht aktiviert."
   };
   const authMsg = t => { $("#authMsg").textContent = t; };
-  async function authAction(fn) {
-    authMsg("");
-    try { await fn(); } catch (e) { authMsg(AUTH_ERR[e.code] || "Anmeldung fehlgeschlagen."); }
-  }
-  const creds = () => [$("#email").value.trim(), $("#password").value];
-  function showAuth(on) { $("#auth").hidden = !on; if (on) $("#email").focus(); }
-  const skipped = () => { try { return sessionStorage.getItem("namenswipe.skip") === "1"; } catch (e) { return false; } };
+  let chosen = "vroni";
+  $("#who").onclick = e => {
+    const b = e.target.closest("[data-who]"); if (!b) return;
+    chosen = b.dataset.who;
+    document.querySelectorAll("#who .chip").forEach(x => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-checked", String(on)); });
+  };
+  function showAuth(on) { $("#auth").hidden = !on; if (on) $("#password").focus(); }
 
   /* ---------- Swipen ---------- */
   const GL = { m: "Junge", u: "Unisex" };
@@ -340,59 +275,15 @@ const FIREBASE_CONFIG = {
     if (g.open.length) out.append(el("h2", "", `Nur einer hat bewertet, gefällt (${g.open.length})`), tagList(g.open));
   }
   function renderResult() {
-    if (user && partnerUid && partnerVotes) showResult(state.myName || "Du", str(members[partnerUid], MAX_NAME) || "Partner", state.votes, partnerVotes);
-    else if (user && state.room) $("#result").replaceChildren();
+    if (!me || !partnerVotes) return;
+    const other = PEOPLE[otherOf(me)];
+    $("#partnerStatus").textContent = `${other} hat ${Object.keys(partnerVotes).length} Namen bewertet. Das Ergebnis aktualisiert sich live.`;
+    showResult(PEOPLE[me], other, state.votes, partnerVotes);
   }
-
-  /* Austausch per Code ohne Konto */
-  const b64 = s => btoa(String.fromCharCode(...new TextEncoder().encode(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-  const unb64 = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0)));
-  function encode(votes) {
-    const l = [], d = [];
-    for (const n in votes) (votes[n] === 1 ? l : d).push(n);
-    return "2." + b64(JSON.stringify({ l, d }));
-  }
-  function decode(code) {
-    code = code.trim().slice(0, 20000);
-    const m = code.match(/[#&?]p=([^&\s]+)/); if (m) code = decodeURIComponent(m[1]);
-    const [v, d] = code.split(".");
-    if (v !== "2" || !d) throw new Error("Ungültiger Code");
-    const o = JSON.parse(unb64(d)), votes = {};
-    if (Array.isArray(o.l)) o.l.forEach(n => { if (BYNAME[n]) votes[n] = 1; });
-    if (Array.isArray(o.d)) o.d.forEach(n => { if (BYNAME[n]) votes[n] = 2; });
-    return votes;
-  }
-  const myCode = () => encode(state.votes);
-  const link = () => location.href.split("#")[0] + "#p=" + myCode();
-  async function copy(txt) { try { await navigator.clipboard.writeText(txt); toast("Kopiert ✓"); } catch (e) { toast("Kopieren nicht möglich – bitte manuell markieren"); } }
-  $("#copyLink").onclick = () => copy(link());
-  $("#copyCode").onclick = () => copy(myCode());
-  $("#doCompare").onclick = () => {
-    let pv;
-    try { pv = decode($("#pCode").value); } catch (err) { return toast("Ungültiger Code"); }
-    showResult(state.myName || "Du", state.pName || "Partner", state.votes, pv);
-    $("#result").scrollIntoView({ behavior: "smooth" });
-  };
-
   function setupCompare() {
-    $("#accountIn").hidden = !user; $("#accountOut").hidden = !!user || !FB_ON;
-    $("#roomBox").hidden = !user;
-    if (user) $("#accountName").textContent = user.email || user.displayName || "";
-    $("#myName").value = state.myName; $("#room").value = state.room; $("#pName").value = state.pName; $("#pCode").value = state.pCode;
-    $("#myCode").value = myCode();
+    $("#accountName").textContent = me ? PEOPLE[me] : "";
   }
-  $("#myName").onchange = e => {
-    state.myName = e.target.value.slice(0, MAX_NAME); save();
-    if (!user) return;
-    userRef("name").set(state.myName).catch(() => {});
-    if (state.room && mySlot) db.ref(`rooms/${state.room}/${mySlot}`).set({ uid: user.uid, name: state.myName || "Partner" }).catch(() => {});
-  };
-  $("#pName").oninput = e => { state.pName = e.target.value.slice(0, MAX_NAME); save(); };
-  $("#pCode").oninput = e => { state.pCode = e.target.value.slice(0, 20000); save(); };
-  $("#join").onclick = () => joinRoom($("#room").value, false);
-  $("#leave").onclick = leaveRoom;
   $("#btnLogout").onclick = () => auth.signOut();
-  $("#btnShowLogin").onclick = () => showAuth(true);
 
   /* ---------- Navigation ---------- */
   function renderAll() { renderStage(); if ($("#v-mine").classList.contains("on")) renderMine(); if ($("#v-compare").classList.contains("on")) setupCompare(); }
@@ -404,38 +295,28 @@ const FIREBASE_CONFIG = {
   document.querySelector("nav").onclick = e => { const b = e.target.closest("button"); if (b) show(b.dataset.v); };
 
   /* ---------- Start ---------- */
-  const hashCode = location.hash.match(/p=([^&]+)/);
-  if (hashCode) {
-    try { state.pCode = decodeURIComponent(hashCode[1]).slice(0, 20000); save(); } catch (e) { /* ungültig */ }
-    history.replaceState(null, "", location.pathname + location.search);
-    $("#manualBox").open = true; show("compare"); toast("Code vom Partner geladen – vergleichen tippen");
-  } else renderStage();
-
-  if (FB_ON) {
+  renderStage();
+  if (typeof firebase === "undefined") {
+    authMsg("Firebase konnte nicht geladen werden. Bitte Verbindung prüfen und neu laden.");
+    $("#authForm").onsubmit = e => e.preventDefault();
+  } else {
     firebase.initializeApp(FIREBASE_CONFIG);
     auth = firebase.auth(); db = firebase.database();
-    $("#authForm").onsubmit = e => { e.preventDefault(); authAction(() => auth.signInWithEmailAndPassword(...creds())); };
-    $("#btnRegister").onclick = () => { if ($("#authForm").reportValidity()) authAction(() => auth.createUserWithEmailAndPassword(...creds())); };
-    $("#btnGoogle").onclick = () => authAction(() => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
-    $("#btnReset").onclick = async () => {
-      const email = $("#email").value.trim();
-      if (!email) return authMsg("Bitte zuerst die E-Mail eintragen.");
-      authMsg(""); try { await auth.sendPasswordResetEmail(email); } catch (e) { /* nichts verraten */ }
-      toast("Falls ein Konto existiert, wurde eine E-Mail gesendet.");
+    $("#authForm").onsubmit = async e => {
+      e.preventDefault(); authMsg("");
+      try { await auth.signInWithEmailAndPassword(emailOf(chosen), $("#password").value); }
+      catch (err) { authMsg(AUTH_ERR[err.code] || "Anmeldung fehlgeschlagen."); }
     };
-    $("#btnSkip").onclick = () => { try { sessionStorage.setItem("namenswipe.skip", "1"); } catch (e) { /* egal */ } showAuth(false); };
     auth.onAuthStateChanged(u => {
-      if (u) {
-        user = u; showAuth(false); $("#password").value = "";
-        switchIdentity(u.uid); syncDown();
+      const who = whoOf(u);
+      if (u && !who) { auth.signOut(); return authMsg("Dieses Konto ist nicht freigeschaltet."); }
+      me = who;
+      if (who) {
+        $("#password").value = ""; showAuth(false);
+        switchIdentity(who); attachPartner(); syncDown();
       } else {
-        const wasIn = !!user; user = null;
-        if (wasIn) switchIdentity("local");
-        setupCompare();
-        if (!skipped()) showAuth(true);
+        switchIdentity("local"); showAuth(true);
       }
     });
-  } else {
-    $("#accountOut").hidden = true;   // Firebase nicht geladen: nur lokaler Modus
   }
 })();

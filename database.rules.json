@@ -2,58 +2,12 @@
   "rules": {
     ".read": false,
     ".write": false,
-    "users": {
-      "$uid": {
-        ".read": "auth != null && (auth.uid === $uid || (data.child('room').exists() && (root.child('rooms').child(data.child('room').val()).child('p1/uid').val() === auth.uid || root.child('rooms').child(data.child('room').val()).child('p2/uid').val() === auth.uid)))",
-        ".write": "auth != null && auth.uid === $uid",
-        "name": {
-          ".validate": "newData.isString() && newData.val().length <= 40"
-        },
-        "room": {
-          ".validate": "newData.isString() && newData.val().length >= 6 && newData.val().length <= 60"
-        },
-        "votes": {
-          "$name": {
-            ".validate": "$name.length <= 40 && (newData.val() === 1 || newData.val() === 2)"
-          }
-        },
-        "$other": {
-          ".validate": false
-        }
-      }
-    },
-    "rooms": {
-      "$room": {
-        ".validate": "$room.length >= 6 && $room.length <= 60",
-        ".read": "auth != null && (data.child('p1/uid').val() === auth.uid || data.child('p2/uid').val() === auth.uid)",
-        "p1": {
-          ".write": "auth != null && ((!data.exists() && root.child('rooms').child($room).child('p2/uid').val() !== auth.uid) || data.child('uid').val() === auth.uid)",
-          ".validate": "newData.child('uid').val() === auth.uid && newData.hasChildren(['uid','name'])",
-          "uid": {
-            ".validate": "newData.isString()"
-          },
-          "name": {
-            ".validate": "newData.isString() && newData.val().length <= 40"
-          },
-          "$other": {
-            ".validate": false
-          }
-        },
-        "p2": {
-          ".write": "auth != null && ((!data.exists() && root.child('rooms').child($room).child('p1/uid').val() !== auth.uid) || data.child('uid').val() === auth.uid)",
-          ".validate": "newData.child('uid').val() === auth.uid && newData.hasChildren(['uid','name'])",
-          "uid": {
-            ".validate": "newData.isString()"
-          },
-          "name": {
-            ".validate": "newData.isString() && newData.val().length <= 40"
-          },
-          "$other": {
-            ".validate": false
-          }
-        },
-        "$other": {
-          ".validate": false
+    "votes": {
+      "$who": {
+        ".read": "auth != null && (auth.token.email === 'vroni@namenswipe.invalid' || auth.token.email === 'felix@namenswipe.invalid')",
+        ".write": "auth != null && (($who === 'vroni' && auth.token.email === 'vroni@namenswipe.invalid') || ($who === 'felix' && auth.token.email === 'felix@namenswipe.invalid'))",
+        "$name": {
+          ".validate": "$name.length <= 40 && (newData.val() === 1 || newData.val() === 2)"
         }
       }
     }

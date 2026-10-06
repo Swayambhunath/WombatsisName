@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.gstatic.com https://apis.google.com; style-src 'self'; img-src 'self' data:; connect-src https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.firebaseapp.com; frame-src https://*.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.gstatic.com; style-src 'self'; img-src 'self' data:; connect-src https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.firebaseapp.com; frame-src https://*.firebaseapp.com; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Namens-Swipe</title>
 <link rel="stylesheet" href="style.css">
@@ -37,64 +37,26 @@
 
   <section class="view" id="v-compare"><div class="scroll">
     <div class="box">
-      <div id="accountIn" hidden>
-        <div>Angemeldet als <b id="accountName"></b></div>
-        <button class="btn ghost" id="btnLogout">Abmelden</button>
-      </div>
-      <div id="accountOut" hidden>
-        <div>Nicht angemeldet – deine Bewertungen liegen nur auf diesem Gerät.</div>
-        <button class="btn" id="btnShowLogin">Anmelden</button>
-      </div>
-      <label for="myName">Dein Anzeigename (für den Vergleich)</label>
-      <input id="myName" placeholder="z. B. Felix" autocomplete="off" maxlength="40">
+      <div>Angemeldet als <b id="accountName"></b></div>
+      <button class="btn ghost" id="btnLogout">Abmelden</button>
+      <p class="hint" id="partnerStatus"></p>
     </div>
-
-    <div class="box" id="roomBox" hidden>
-      <label for="room">Raum-Code (mindestens 6 Zeichen, gleicher Code bei euch beiden, geheim halten)</label>
-      <input id="room" placeholder="z. B. felix-anna-4711" autocomplete="off" maxlength="60">
-      <div class="row">
-        <button class="btn" id="join">Verbinden</button>
-        <button class="btn ghost" id="leave" hidden>Raum verlassen</button>
-      </div>
-      <p class="hint" id="roomStatus">Nicht verbunden.</p>
-      <p class="hint">Eure Bewertungen werden live verglichen. Im Raum sehen nur ihr beide die Bewertungen des anderen.</p>
-    </div>
-
-    <details class="box" id="manualBox">
-      <summary>Ohne Konto vergleichen (Code austauschen)</summary>
-      <h2 class="first">Dein Code</h2>
-      <textarea id="myCode" readonly></textarea>
-      <div class="row">
-        <button class="btn" id="copyLink">Link kopieren</button>
-        <button class="btn ghost" id="copyCode">Nur Code kopieren</button>
-      </div>
-      <label for="pName">Name des Partners</label>
-      <input id="pName" placeholder="z. B. Anna" autocomplete="off" maxlength="40">
-      <label for="pCode">Code oder Link vom Partner</label>
-      <textarea id="pCode" placeholder="Hier einfügen …"></textarea>
-      <button class="btn" id="doCompare">Vergleichen</button>
-    </details>
-
     <div id="result"></div>
   </div></section>
 </main>
 
-<section class="auth" id="auth" hidden aria-label="Anmeldung">
-  <form class="box" id="authForm" autocomplete="on">
+<section class="auth" id="auth" aria-label="Anmeldung">
+  <form class="box" id="authForm">
     <h2 class="first">👶 Namens-Swipe</h2>
-    <p class="hint">Melde dich an, damit deine Bewertungen gespeichert werden und du sie mit deinem Partner vergleichen kannst.</p>
-    <label for="email">E-Mail</label>
-    <input id="email" type="email" autocomplete="username" required>
-    <label for="password">Passwort (mindestens 6 Zeichen)</label>
-    <input id="password" type="password" autocomplete="current-password" required minlength="6">
+    <p class="hint">Wer bist du?</p>
+    <div class="row who" id="who" role="radiogroup" aria-label="Benutzer">
+      <button type="button" class="chip on" data-who="vroni" role="radio" aria-checked="true">Vroni</button>
+      <button type="button" class="chip" data-who="felix" role="radio" aria-checked="false">Felix</button>
+    </div>
+    <label for="password">Passwort</label>
+    <input id="password" type="password" autocomplete="current-password" required>
     <p class="msg" id="authMsg" role="alert"></p>
     <button class="btn wide" type="submit" id="btnLogin">Anmelden</button>
-    <button class="btn ghost wide" type="button" id="btnRegister">Konto erstellen</button>
-    <button class="btn ghost wide" type="button" id="btnGoogle">Mit Google anmelden</button>
-    <div class="row">
-      <button class="btn link" type="button" id="btnReset">Passwort vergessen?</button>
-      <button class="btn link" type="button" id="btnSkip">Ohne Konto weitermachen</button>
-    </div>
   </form>
 </section>
 
