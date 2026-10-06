@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Namens-Swipe</title>
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fff; --text:#2b2b2b; --muted:#8a857c; --line:#e6e0d6;
+  --like:#2fb380; --nope:#e5574f; --accent:#6b5bd6;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#17161a; --card:#232227; --text:#f1eee9; --muted:#9a95a0; --line:#34323a;}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  display:flex;flex-direction:column;max-width:520px;margin:0 auto;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom);overflow-x:hidden}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 0 6px}
+h1{font-size:1.2rem;margin:0}
+nav{display:flex;gap:4px;background:var(--line);border-radius:12px;padding:3px}
+nav button{border:0;background:none;color:var(--muted);padding:7px 12px;border-radius:9px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button.on{background:var(--card);color:var(--text);font-weight:600;box-shadow:0 1px 3px #0002}
+main{flex:1;display:flex;flex-direction:column;min-height:0}
+.view{display:none;flex:1;flex-direction:column;min-height:0}
+.view.on{display:flex}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem}
+.filters{display:flex;gap:6px;margin:10px 0}
+.chip{border:1px solid var(--line);background:none;color:var(--muted);border-radius:99px;padding:5px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.stage{flex:1;position:relative;min-height:280px;display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.card{position:absolute;width:100%;max-width:340px;aspect-ratio:3/4;max-height:100%;background:var(--card);border-radius:24px;
+  box-shadow:0 10px 30px #0002;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  user-select:none;cursor:grab;touch-action:none;will-change:transform}
+.card.back{transform:scale(.94) translateY(12px);opacity:.6;pointer-events:none}
+.card .name{font-size:clamp(2rem,10vw,2.8rem);font-weight:700;letter-spacing:-.5px;text-align:center;padding:0 12px;word-break:break-word}
+.card .sub{color:var(--muted);font-size:.95rem}
+.stamp{position:absolute;top:28px;font-weight:800;font-size:1.6rem;border:4px solid;border-radius:10px;padding:2px 10px;opacity:0;transform:rotate(-12deg)}
+.stamp.l{left:22px;color:var(--like)} .stamp.n{right:22px;color:var(--nope);transform:rotate(12deg)}
+.actions{display:flex;justify-content:center;gap:22px;padding:14px 0 18px}
+.round{width:64px;height:64px;border-radius:50%;border:0;background:var(--card);box-shadow:0 4px 14px #0003;font-size:1.7rem;cursor:pointer}
+.round.sm{width:46px;height:46px;font-size:1.1rem;align-self:center;color:var(--muted)}
+.round:active{transform:scale(.93)}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+.scroll{overflow-y:auto;flex:1;padding-bottom:20px}
+h2{font-size:1rem;margin:18px 0 8px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:.9rem;cursor:pointer}
+.tag.match{background:var(--like);border-color:var(--like);color:#fff;font-weight:600}
+.tag small{opacity:.6;margin-left:4px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.box label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:4px}
+input,textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+textarea{resize:vertical;min-height:70px;font-size:.8rem;word-break:break-all}
+.btn{border:0;background:var(--accent);color:#fff;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;margin-top:8px}
+.btn.ghost{background:none;color:var(--accent);border:1px solid var(--accent)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.hint{color:var(--muted);font-size:.85rem;margin:4px 0 0}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#222;color:#fff;padding:9px 16px;border-radius:99px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <h1>👶 Namens-Swipe</h1>
+  <nav>
+    <button data-v="swipe" class="on">Swipen</button>
+    <button data-v="mine">Meine</button>
+    <button data-v="compare">Vergleich</button>
+  </nav>
+</header>
+<main>
+  <section class="view on" id="v-swipe">
+    <div>
+      <div class="bar"><i id="prog"></i></div>
+      <div class="meta"><span id="progTxt"></span><span id="countTxt"></span></div>
+      <div class="filters" id="filters">
+        <button class="chip on" data-g="all">Alle</button>
+        <button class="chip" data-g="m">Jungs</button>
+        <button class="chip" data-g="f">Mädchen</button>
+        <button class="chip" data-g="u">Neutral</button>
+      </div>
+    </div>
+    <div class="stage" id="stage"></div>
+    <div class="actions">
+      <button class="round" id="bNope" aria-label="Nein">✖️</button>
+      <button class="round sm" id="bUndo" aria-label="Zurück">↩︎</button>
+      <button class="round" id="bLike" aria-label="Gefällt mir">💚</button>
+    </div>
+  </section>
+
+  <section class="view" id="v-mine"><div class="scroll" id="mineBody"></div></section>
+
+  <section class="view" id="v-compare"><div class="scroll">
+    <div class="box">
+      <label for="myName">Dein Name</label>
+      <input id="myName" placeholder="z.B. Felix" autocomplete="off">
+      <h2 style="margin-top:14px">Dein Code</h2>
+      <textarea id="myCode" readonly></textarea>
+      <div class="row">
+        <button class="btn" id="copyLink">Link kopieren</button>
+        <button class="btn ghost" id="copyCode">Nur Code kopieren</button>
+      </div>
+      <p class="hint">Schick deinem Partner den Link oder Code. Eure Ergebnisse bleiben nur auf euren Geräten, es gibt keinen Server.</p>
+    </div>
+    <div class="box">
+      <label for="pName">Name des Partners</label>
+      <input id="pName" placeholder="z.B. Anna" autocomplete="off">
+      <label for="pCode" style="margin-top:10px">Code oder Link vom Partner</label>
+      <textarea id="pCode" placeholder="Hier einfügen …"></textarea>
+      <button class="btn" id="doCompare">Vergleichen</button>
+    </div>
+    <div id="result"></div>
+  </div></section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- Namensliste ----------
+   WICHTIG: Reihenfolge nie ändern und nur hinten anhängen, sonst passen
+   gespeicherte Codes nicht mehr zusammen. Format: Name:Typ (m/f/u) */
+const RAW = `Emil:m,Noah:m,Matteo:m,Leon:m,Elias:m,Finn:m,Paul:m,Ben:m,Henry:m,Luca:m,Theo:m,Felix:m,Jonas:m,Anton:m,Oskar:m,Max:m,Mats:m,Liam:m,Louis:m,Moritz:m,Jakob:m,Lukas:m,Samuel:m,Levi:m,Milan:m,Nico:m,Tim:m,David:m,Julian:m,Fabian:m,Niklas:m,Philipp:m,Simon:m,Johannes:m,Valentin:m,Konrad:m,Karl:m,Ole:m,Piet:m,Jannis:m,Linus:m,Tom:m,Carl:m,Hugo:m,Bruno:m,Arthur:m,Vincent:m,Benedikt:m,Sebastian:m,Alexander:m,Daniel:m,Leo:m,Mika:u,Luan:m,Enzo:m,Rafael:m,Gabriel:m,Adrian:m,Jonathan:m,Maximilian:m,Florian:m,Tobias:m,Jan:m,Erik:m,Nils:m,Till:m,Lennard:m,Joshua:m,Marlon:m,Ferdinand:m,Friedrich:m,August:m,Ludwig:m,Rudolf:m,Emilian:m,Ilias:m,Amir:m,Yusuf:m,Elio:m,Santiago:m,Mateo:m,Lorenz:m,Quentin:m,Raphael:m,Robin:m,Dario:m,Damian:m,Cornelius:m,Titus:m,Justus:m,Bastian:m,Merlin:m,Magnus:m,Gustav:m,Jasper:m,Malte:m,Marlo:m,Wilhelm:m,Otto:m,Tilo:m,Kilian:m,Lasse:m,Fiete:m,Bjarne:m,Mia:f,Emma:f,Hannah:f,Sophia:f,Emilia:f,Lina:f,Marie:f,Mila:f,Ella:f,Lea:f,Clara:f,Lia:f,Leni:f,Lotta:f,Charlotte:f,Johanna:f,Frieda:f,Greta:f,Ida:f,Paula:f,Amelie:f,Mathilda:f,Nora:f,Luisa:f,Anna:f,Laura:f,Sophie:f,Lena:f,Maja:f,Matilda:f,Pia:f,Elisa:f,Julia:f,Sarah:f,Katharina:f,Theresa:f,Isabella:f,Helene:f,Rosa:f,Marlene:f,Emely:f,Elena:f,Lilly:f,Livia:f,Mara:f,Nele:f,Tilda:f,Romy:f,Jule:f,Smilla:f,Merle:f,Finja:f,Thea:f,Anni:f,Alma:f,Elsa:f,Edda:f,Hedwig:f,Henriette:f,Josephine:f,Karla:f,Klara:f,Luna:f,Aurelia:f,Valentina:f,Viktoria:f,Vera:f,Olivia:f,Zoe:f,Fiona:f,Nina:f,Alina:f,Selina:f,Stella:f,Mira:f,Amalia:f,Cäcilia:f,Dorothea:f,Eleonora:f,Felicitas:f,Gerda:f,Hanna:f,Ina:f,Jana:f,Kira:f,Lilli:f,Magdalena:f,Nelly:f,Ronja:f,Sina:f,Tessa:f,Ulla:f,Wanda:f,Yara:f,Zara:f,Ayla:f,Amira:f,Leyla:f,Aaliyah:f,Sofia:f,Carlotta:f,Cosima:f,Ophelia:f,Penelope:f,Annabelle:f,Lucy:f,Ava:f,Nia:f,Malia:f,Juna:f,Lou:u,Sam:u,Kim:u,Alex:u,Noa:u,Jona:u,Charlie:u,Ari:u,Eli:u,Nemo:u,Sascha:u,Toni:u,Jules:u,Maxi:u,Kai:u,Rio:u,Joris:u,Ronin:u,Sasha:u,Lenny:u,Rowan:u,Jo:u,Bela:u,Lian:u,Fin:u,Yuki:u,Luka:u,Kaya:u,Sunny:u,Ravi:u,Cato:u,Ives:u,Indigo:u,Juri:u,Lio:u,Noel:u,Remy:u,Taylor:u,Zeno:u,Eden:u,Elia:u,Ilay:u,Jorin:u,Levin:u,Nilo:u,Oke:u,Paulin:u,Quinn:u,Rene:u,Sunna:u,Tarik:u,Vico:u`;
+
+const NAMES = [];
+RAW.split(",").forEach(s => {
+  const [n, g] = s.trim().split(":");
+  NAMES.push({ n, g, i: NAMES.length });
+});
+const LIST_VER = "1";
+
+/* Feste Reihenfolge (für beide gleich): seeded shuffle */
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const ORDER = NAMES.map(x => x.i);
+{ const r = mulberry(20240607); for (let i = ORDER.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [ORDER[i], ORDER[j]] = [ORDER[j], ORDER[i]]; } }
+
+/* ---------- Zustand ---------- */
+const LS = "namenswipe.v1";
+let state = { votes: {}, myName: "", pName: "", pCode: "", history: [] };   // votes[i] = 1 gefällt, 2 nicht
+try { Object.assign(state, JSON.parse(localStorage.getItem(LS) || "{}")); } catch (e) {}
+const save = () => { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} };
+let gender = "all";
+
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1600)}
+
+/* ---------- Code (2 Bit pro Name) ---------- */
+function encode(votes){
+  const bytes = new Uint8Array(Math.ceil(NAMES.length / 4));
+  for (let i = 0; i < NAMES.length; i++) bytes[i >> 2] |= (votes[i] || 0) << ((i & 3) * 2);
+  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
+  return LIST_VER + "." + btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function decode(code){
+  code = code.trim();
+  const m = code.match(/[#&?]p=([^&\s]+)/); if (m) code = decodeURIComponent(m[1]);
+  const [v, d] = code.split(".");
+  if (v !== LIST_VER || !d) throw new Error("Code passt nicht (andere Namensliste?)");
+  const bin = atob(d.replace(/-/g, "+").replace(/_/g, "/"));
+  const votes = {};
+  for (let i = 0; i < NAMES.length; i++) { const b = bin.charCodeAt(i >> 2); if (isNaN(b)) break; const x = (b >> ((i & 3) * 2)) & 3; if (x === 1 || x === 2) votes[i] = x; }
+  return votes;
+}
+
+/* ---------- Swipen ---------- */
+const GL = { m: "Junge", f: "Mädchen", u: "neutral" };
+const pool = () => ORDER.filter(i => gender === "all" || NAMES[i].g === gender);
+const queue = () => pool().filter(i => !state.votes[i]);
+
+function renderStage(){
+  const q = queue(), st = $("#stage"), total = pool().length;
+  const done = total - q.length;
+  $("#prog").style.width = (total ? done / total * 100 : 0) + "%";
+  $("#progTxt").textContent = `${done} von ${total} bewertet`;
+  const likes = Object.values(state.votes).filter(v => v === 1).length;
+  $("#countTxt").textContent = `💚 ${likes}`;
+  st.innerHTML = "";
+  if (!q.length) { st.innerHTML = `<div class="empty">🎉 Alle Namen in dieser Auswahl bewertet!<br>Schau bei „Vergleich“ nach Übereinstimmungen.</div>`; return; }
+  if (q[1] !== undefined) st.appendChild(makeCard(q[1], true));
+  st.appendChild(makeCard(q[0], false));
+  attachDrag(st.lastChild, q[0]);
+}
+function makeCard(i, back){
+  const c = document.createElement("div"); c.className = "card" + (back ? " back" : "");
+  c.innerHTML = `<div class="stamp l">GUT</div><div class="stamp n">NEIN</div><div class="name">${esc(NAMES[i].n)}</div><div class="sub">${GL[NAMES[i].g]}</div>`;
+  return c;
+}
+function vote(i, v, card){
+  state.votes[i] = v; state.history.push(i); if (state.history.length > 500) state.history.shift();
+  save();
+  if (card) {
+    card.style.transition = "transform .25s, opacity .25s";
+    card.style.transform = `translate(${v === 1 ? 600 : -600}px,0) rotate(${v === 1 ? 30 : -30}deg)`; card.style.opacity = 0;
+    setTimeout(renderStage, 200);
+  } else renderStage();
+}
+function attachDrag(card, i){
+  let sx = 0, sy = 0, dx = 0, drag = false;
+  const l = card.querySelector(".stamp.l"), n = card.querySelector(".stamp.n");
+  card.addEventListener("pointerdown", e => { drag = true; sx = e.clientX; sy = e.clientY; card.setPointerCapture(e.pointerId); card.style.transition = "none"; });
+  card.addEventListener("pointermove", e => {
+    if (!drag) return; dx = e.clientX - sx;
+    card.style.transform = `translate(${dx}px,${(e.clientY - sy) * .3}px) rotate(${dx / 15}deg)`;
+    l.style.opacity = Math.max(0, Math.min(1, dx / 100)); n.style.opacity = Math.max(0, Math.min(1, -dx / 100));
+  });
+  const end = () => {
+    if (!drag) return; drag = false;
+    if (dx > 100) vote(i, 1, card); else if (dx < -100) vote(i, 2, card);
+    else { card.style.transition = "transform .2s"; card.style.transform = ""; l.style.opacity = n.style.opacity = 0; }
+    dx = 0;
+  };
+  card.addEventListener("pointerup", end); card.addEventListener("pointercancel", end);
+}
+const cur = () => queue()[0];
+$("#bLike").onclick = () => { const i = cur(); if (i !== undefined) vote(i, 1, $("#stage .card:last-child")); };
+$("#bNope").onclick = () => { const i = cur(); if (i !== undefined) vote(i, 2, $("#stage .card:last-child")); };
+$("#bUndo").onclick = () => { const i = state.history.pop(); if (i === undefined) return toast("Nichts zum Zurücknehmen"); delete state.votes[i]; save(); renderStage(); };
+document.addEventListener("keydown", e => {
+  if (!$("#v-swipe").classList.contains("on") || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if (e.key === "ArrowRight") $("#bLike").click(); else if (e.key === "ArrowLeft") $("#bNope").click(); else if (e.key === "Backspace") $("#bUndo").click();
+});
+$("#filters").onclick = e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  gender = b.dataset.g; document.querySelectorAll("#filters .chip").forEach(x => x.classList.toggle("on", x === b)); renderStage();
+};
+
+/* ---------- Meine ---------- */
+function tagsHtml(list, cls = ""){ return list.length ? `<div class="tags">${list.map(i => `<span class="tag ${cls}" data-i="${i}">${esc(NAMES[i].n)}</span>`).join("")}</div>` : `<p class="hint">Noch nichts.</p>`; }
+function renderMine(){
+  const by = v => ORDER.filter(i => state.votes[i] === v);
+  const L = by(1), D = by(2);
+  $("#mineBody").innerHTML = `<h2>💚 Gefällt mir (${L.length})</h2>${tagsHtml(L)}<h2>✖️ Gefällt nicht (${D.length})</h2>${tagsHtml(D)}
+    <p class="hint">Tippe einen Namen an, um ihn auf die Gegenseite zu verschieben.</p>
+    <button class="btn ghost" id="reset" style="margin-top:20px">Alles zurücksetzen</button>`;
+  $("#reset").onclick = () => { if (confirm("Wirklich alle Bewertungen löschen?")) { state.votes = {}; state.history = []; save(); renderMine(); renderStage(); } };
+}
+$("#mineBody").onclick = e => {
+  const t = e.target.closest(".tag"); if (!t) return;
+  const i = +t.dataset.i; state.votes[i] = state.votes[i] === 1 ? 2 : 1; save(); renderMine();
+};
+
+/* ---------- Vergleich ---------- */
+function myCode(){ return encode(state.votes); }
+function link(){ return location.href.split("#")[0] + "#p=" + myCode(); }
+function refreshCode(){ $("#myCode").value = myCode(); }
+async function copy(txt){ try { await navigator.clipboard.writeText(txt); toast("Kopiert ✓"); } catch (e) { toast("Kopieren nicht möglich – bitte manuell markieren"); } }
+$("#copyLink").onclick = () => copy(link());
+$("#copyCode").onclick = () => copy(myCode());
+$("#myName").oninput = e => { state.myName = e.target.value; save(); };
+$("#pName").oninput = e => { state.pName = e.target.value; save(); };
+$("#pCode").oninput = e => { state.pCode = e.target.value; save(); };
+$("#doCompare").onclick = () => {
+  let pv; try { pv = decode($("#pCode").value); } catch (err) { return toast(err.message || "Ungültiger Code"); }
+  const me = esc(state.myName || "Du"), pa = esc(state.pName || "Partner");
+  const mine = state.votes, groups = { match: [], iLikePDis: [], pLikeIDis: [], bothNo: [], open: [] };
+  let overlap = 0;
+  ORDER.forEach(i => {
+    const a = mine[i], b = pv[i];
+    if (!a || !b) { if (a === 1 || b === 1) groups.open.push(i); return; }
+    overlap++;
+    if (a === 1 && b === 1) groups.match.push(i);
+    else if (a === 1) groups.iLikePDis.push(i);
+    else if (b === 1) groups.pLikeIDis.push(i);
+    else groups.bothNo.push(i);
+  });
+  const pTotal = Object.keys(pv).length, mTotal = Object.keys(mine).length;
+  $("#result").innerHTML = `
+    <div class="box"><b>${overlap}</b> Namen von euch beiden bewertet · ${me}: ${mTotal} · ${pa}: ${pTotal}</div>
+    <h2>🎉 Beide mögen (${groups.match.length})</h2>${tagsHtml(groups.match, "match")}
+    <h2>${me} mag, ${pa} nicht (${groups.iLikePDis.length})</h2>${tagsHtml(groups.iLikePDis)}
+    <h2>${pa} mag, ${me} nicht (${groups.pLikeIDis.length})</h2>${tagsHtml(groups.pLikeIDis)}
+    <h2>Beide lehnen ab (${groups.bothNo.length})</h2>${tagsHtml(groups.bothNo)}
+    ${groups.open.length ? `<h2>Nur einer hat bewertet, gefällt (${groups.open.length})</h2>${tagsHtml(groups.open)}` : ""}`;
+  $("#result").scrollIntoView({ behavior: "smooth" });
+};
+
+/* ---------- Navigation ---------- */
+function show(v){
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.v === v));
+  document.querySelectorAll(".view").forEach(s => s.classList.toggle("on", s.id === "v-" + v));
+  if (v === "mine") renderMine(); if (v === "compare") refreshCode(); if (v === "swipe") renderStage();
+}
+document.querySelector("nav").onclick = e => { const b = e.target.closest("button"); if (b) show(b.dataset.v); };
+
+/* ---------- Start ---------- */
+$("#myName").value = state.myName; $("#pName").value = state.pName; $("#pCode").value = state.pCode;
+const m = location.hash.match(/p=([^&]+)/);
+if (m) { $("#pCode").value = state.pCode = decodeURIComponent(m[1]); save(); history.replaceState(null, "", location.pathname + location.search); show("compare"); toast("Code vom Partner geladen – Namen eintragen & vergleichen"); }
+else renderStage();
+</script>
+</body>
+</html>
