@@ -571,4 +571,104 @@ Erhard|m|germanisch|„Ehre“ + „stark“|retro
 Arno|m|germanisch|Kurzform von Arnold, „Adler“|retro
 Gerold|m|germanisch|„Speer“ + „Herrschaft“|retro
 Leberecht|m|deutsch|„lebe recht“|retro
+Alan|m|keltisch|Bedeutung umstritten, u. a. „der Schöne“|neu
+Alvar|m|altnordisch|„Elf“ + „Krieger“|neu
+Amos|m|hebräisch|„der von Gott Getragene“|neu
+Aron|m|hebräisch|Form von Aaron, Bedeutung umstritten|neu
+Aurelian|m|lateinisch|„der Goldene“|neu
+Bastien|m|französisch|Form von Sebastian, „der Verehrte“|neu
+Bennet|m|englisch|Form von Benedikt, „der Gesegnete“|neu
+Bertil|m|schwedisch|Form von Berthold, „glänzender Herrscher“|neu
+Caleb|m|hebräisch|„ganzherzig“ (umstritten)|neu
+Camillo|m|italienisch|„der Opferdiener“|neu
+Cassius|m|lateinisch|römischer Geschlechtername, Bedeutung umstritten|neu
+Celestin|m|lateinisch|„der Himmlische“|neu
+Cosimo|m|italienisch|Form von Kosmas, „Ordnung, Schmuck“|neu
+Dante|m|italienisch|Kurzform von Durante, „der Standhafte“|neu
+Dean|m|englisch|„Tal“ oder „Dekan“|neu
+Eero|m|finnisch|Form von Erik, „ewiger Herrscher“|neu
+Elian|u|mehrere|Form von Elias bzw. Julian, Herkunft vielfältig|neu
+Emilio|m|spanisch|Form von Emil, „der Eifrige“|neu
+Enno|m|friesisch|Kurzform friesischer Namen wie Eckehard|neu
+Ezra|m|hebräisch|„Hilfe“|neu
+Fabrizio|m|italienisch|„der Handwerker“|neu
+Felipe|m|spanisch|Form von Philipp, „Pferdefreund“|neu
+Finnegan|m|irisch|„kleiner Blonder“|irisch,neu
+Flynn|m|irisch|„der Rötliche“|irisch,neu
+Gian|m|rätoromanisch|Form von Johannes, „Gott ist gnädig“|neu
+Hamza|m|arabisch|„der Starke“|neu
+Haakon|m|altnordisch|„hoher Sohn“, hohe Abstammung|neu
+Idris|m|arabisch|„der Eifrige“ (umstritten)|neu
+Ilja|m|russisch|Form von Elias, „Mein Gott ist Jahwe“|neu
+Jari|m|finnisch|Form von Georg, „Landmann“|neu
+Joan|u|katalanisch|Form von Johannes, „Gott ist gnädig“|neu
+Jorge|m|spanisch|Form von Georg, „Landmann“|neu
+Kalle|m|schwedisch|Koseform von Karl, „freier Mann“|neu
+Karim|m|arabisch|„der Großzügige“|neu
+Laszlo|m|ungarisch|Form von Ladislaus, „Herrschaft“ + „Ruhm“|neu
+Leandro|m|spanisch|Form von Leander, „Löwenmann“|neu
+Lucian|m|lateinisch|„der Lichtvolle“|neu
+Lucas|m|englisch|Form von Lukas, „der Leuchtende“|neu
+Marek|m|slawisch|Form von Markus, „dem Mars geweiht“|neu
+Mattia|m|italienisch|Form von Matthias, „Geschenk Jahwes“|neu
+Maxim|m|russisch|Form von Maximus, „der Größte“|neu
+Melchior|m|hebräisch|„König des Lichts“ (umstritten)|neu
+Milo|m|germanisch|„der Milde, Gnädige“ (umstritten)|neu
+Nathan|m|hebräisch|„Er hat gegeben“|neu
+Neo|u|griechisch|„neu“|neu
+Nikita|m|russisch|„der Sieger“|neu
+Oren|m|hebräisch|„Kiefer, Fichte“|neu
+Pelle|m|schwedisch|Form von Peter, „Fels“|neu
+Phil|m|englisch|Kurzform von Philipp, „Pferdefreund“|neu
+Raoul|m|französisch|Form von Ralf, „Rat“ + „Wolf“|neu
+Rufus|m|lateinisch|„der Rothaarige“|neu
+Salomon|m|hebräisch|„der Friedliche“|neu
+Sandor|m|ungarisch|Form von Alexander, „Beschützer der Männer“|neu
+Santino|m|italienisch|„der kleine Heilige“|neu
+Toby|m|englisch|Form von Tobias, „Gott ist gut“|neu
+Tommi|m|deutsch|Koseform von Thomas, „Zwilling“|neu
+Valentino|m|italienisch|Form von Valentin, „der Gesunde, Starke“|neu
+Vito|m|italienisch|„der Lebendige“|neu
+Elija|m|hebräisch|Form von Elias, „Mein Gott ist Jahwe“|neu
+Jeremias|m|hebräisch|„Jahwe erhöht“|neu
+Dimitri|m|griechisch|„dem Gott Demeter geweiht“|neu
+Leonidas|m|griechisch|„Sohn des Löwen“|neu
+Cyprian|m|lateinisch|„der aus Zypern“|neu
+Augustin|m|lateinisch|Form von Augustinus, „der Erhabene“|neu
+Lennert|m|niederländisch|Form von Leonhard, „stark wie ein Löwe“|neu
+Mikail|m|arabisch|Form von Michael, „Wer ist wie Gott?“|neu
+Joschua|m|hebräisch|Form von Joshua, „Gott ist Rettung“|neu
+Matthäus|m|aramäisch|„Geschenk Jahwes“|neu
+Noam|m|hebräisch|„Freundlichkeit, Lieblichkeit“|neu
+Blake|u|englisch|altenglisch, „blass“ oder „dunkel“ (mehrdeutig)|neu
+Brook|u|englisch|„Bach“|neu
+Cameron|u|schottisch|gälisch, „krumme Nase“|neu
+Chase|u|englisch|„Jagd, Jäger“|neu
+Dakota|u|Sioux|„Freund, Verbündeter“|neu
+Drew|u|englisch|Kurzform von Andrew, „der Mannhafte“|neu
+Emerson|u|englisch|„Sohn des Emery“|neu
+Hayden|u|englisch|„Heidetal“|neu
+Kit|u|englisch|Kurzform von Christopher, „Christusträger“|neu
+Lane|u|englisch|„Weg, Gasse“|neu
+Logan|u|schottisch|„kleine Mulde“|neu
+Mason|u|englisch|„Steinmetz“|neu
+Nash|u|englisch|„an der Esche“|neu
+Parker|u|englisch|„Parkwächter“|neu
+Reese|u|walisisch|„Eifer, Begeisterung“|neu
+Sawyer|u|englisch|„Holzsäger“|neu
+Sidney|u|englisch|Herkunft umstritten, evtl. „breite Insel“|neu
+Sol|u|lateinisch|„Sonne“|neu
+Storm|u|englisch|„Sturm“|neu
+Tyler|u|englisch|„Dachdecker“|neu
+Wren|u|englisch|„Zaunkönig“|neu
+Noor|u|arabisch|„Licht“|neu
+Sage|u|englisch|„Salbei“, auch „der Weise“|neu
+Yuri|u|russisch|russisch Form von Georg, japanisch u. a. „Lilie“|neu
+Lior|u|hebräisch|„mein Licht“|neu
+Ori|u|hebräisch|„mein Licht“|neu
+Tal|u|hebräisch|„Tau“|neu
+Aurelio|m|italienisch|Form von Aurel, „der Goldene“|neu
+Silvan|m|lateinisch|Form von Silvanus, „der Waldbewohner“|neu
+Henner|m|niederdeutsch|Form von Heinrich, „Herrscher des Hauses“|neu
+Kjeld|m|dänisch|„Kessel“|neu
 `;
