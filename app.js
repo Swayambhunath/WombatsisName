@@ -11,7 +11,7 @@ const FIREBASE_CONFIG = {
 };
 
 (() => {
-  const MAX_NAME = 40, VERSION = "2026-10-07.5";
+  const MAX_NAME = 40, VERSION = "2026-10-07.6";
 
   /* ---------- Hilfsfunktionen ---------- */
   const $ = s => document.querySelector(s);
