@@ -11,7 +11,7 @@ const FIREBASE_CONFIG = {
 };
 
 (() => {
-  const MAX_NAME = 40, VERSION = "2026-10-07.2";
+  const MAX_NAME = 40, VERSION = "2026-10-07.3";
 
   /* ---------- Hilfsfunktionen ---------- */
   const $ = s => document.querySelector(s);
@@ -91,11 +91,31 @@ const FIREBASE_CONFIG = {
     (state.votes[n] ? r.set(state.votes[n]) : r.remove()).catch(err => { toast("Speichern in der Cloud fehlgeschlagen"); status(`Speichern fehlgeschlagen (${err.code || "Fehler"}). Sind die neuen Datenbankregeln veröffentlicht?`); });
   }
   const status = t => { $("#partnerStatus").textContent = t; };
+  function detachOwn() {
+    if (ownRef) ownRef.off();
+    ownRef = null; ownCloud = {}; clearTimeout(healTimer);
+  }
   function detachPartner() {
     if (partnerRef) partnerRef.off();
     partnerRef = null; partnerVotes = null;
   }
-  let online = false;
+  let online = false, ownRef = null, ownCloud = {}, healTimer = null;
+  /* Eigene Stimmen live beobachten: fehlt in der Cloud etwas, was lokal vorhanden ist, wird es nachgeschickt (z. B. nach Verbindungsabbruch) */
+  function attachOwn() {
+    detachOwn();
+    ownRef = db.ref(`votes/${me}`);
+    ownRef.on("value", snap => { ownCloud = sanitizeVotes(snap.val()); scheduleHeal(); renderResult(); });
+  }
+  function scheduleHeal() {
+    clearTimeout(healTimer);
+    healTimer = setTimeout(() => {
+      if (!ownRef) return;
+      const upd = {};
+      for (const n in state.votes) if (ownCloud[n] !== state.votes[n]) upd[n] = state.votes[n];
+      if (Object.keys(upd).length) ownRef.update(upd).catch(err => status(`Speichern fehlgeschlagen (${err.code || "Fehler"}).`));
+    }, 3000);
+  }
+  const ownInfo = () => `Du hast ${Object.keys(state.votes).length} bewertet, ${Object.keys(ownCloud).length} davon sind in der Cloud gespeichert.`;
   function attachPartner() {
     detachPartner();
     const who = otherOf(me);
@@ -127,7 +147,7 @@ const FIREBASE_CONFIG = {
     }
   }
   function switchIdentity(id) {
-    detachPartner();
+    detachOwn(); detachPartner();
     identity = id; state = loadState(id);
     $("#result").replaceChildren();
     renderAll();
@@ -287,7 +307,7 @@ const FIREBASE_CONFIG = {
   function renderResult() {
     if (!me || !partnerVotes) return;
     const other = PEOPLE[otherOf(me)];
-    status(`${other} hat ${Object.keys(partnerVotes).length} Namen bewertet. Das Ergebnis aktualisiert sich live.`);
+    status(`${other} hat ${Object.keys(partnerVotes).length} Namen bewertet. ${ownInfo()} Das Ergebnis aktualisiert sich live.`);
     showResult(PEOPLE[me], other, state.votes, partnerVotes);
   }
   function setupCompare() {
@@ -325,7 +345,7 @@ const FIREBASE_CONFIG = {
       me = who;
       if (who) {
         $("#password").value = ""; showAuth(false);
-        switchIdentity(who); attachPartner(); syncDown();
+        switchIdentity(who); attachOwn(); attachPartner(); syncDown();
       } else {
         switchIdentity("local"); showAuth(true);
       }
