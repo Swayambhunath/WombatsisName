@@ -11,7 +11,7 @@ const FIREBASE_CONFIG = {
 };
 
 (() => {
-  const MAX_NAME = 40;
+  const MAX_NAME = 40, VERSION = "2026-10-07.1";
 
   /* ---------- Hilfsfunktionen ---------- */
   const $ = s => document.querySelector(s);
@@ -93,10 +93,18 @@ const FIREBASE_CONFIG = {
     if (partnerRef) partnerRef.off();
     partnerRef = null; partnerVotes = null;
   }
+  let online = false;
   function attachPartner() {
     detachPartner();
     const who = otherOf(me);
     status(`Warte auf Bewertungen von ${PEOPLE[who]} …`);
+    clearTimeout(attachPartner.t);
+    attachPartner.t = setTimeout(() => {
+      if (partnerVotes) return;
+      status(online
+        ? `Verbunden, aber keine Daten von ${PEOPLE[who]} erhalten. Hat ${PEOPLE[who]} schon geswipt und sind die Regeln veröffentlicht?`
+        : "Keine Verbindung zur Datenbank. Bitte Netzwerk wechseln (WLAN/Mobilfunk) und neu laden.");
+    }, 8000);
     partnerRef = db.ref(`votes/${who}`);
     partnerRef.on("value", snap => { partnerVotes = sanitizeVotes(snap.val()); renderResult(); },
       err => status(`Bewertungen von ${PEOPLE[who]} nicht lesbar (${err.code || "Fehler"}). Sind die neuen Datenbankregeln veröffentlicht?`));
@@ -282,6 +290,7 @@ const FIREBASE_CONFIG = {
   }
   function setupCompare() {
     $("#accountName").textContent = me ? PEOPLE[me] : "";
+    $("#ver").textContent = "Version " + VERSION;
   }
   $("#btnLogout").onclick = () => auth.signOut();
 
@@ -302,6 +311,7 @@ const FIREBASE_CONFIG = {
   } else {
     firebase.initializeApp(FIREBASE_CONFIG);
     auth = firebase.auth(); db = firebase.database();
+    db.ref(".info/connected").on("value", snap => { online = snap.val() === true; });
     $("#authForm").onsubmit = async e => {
       e.preventDefault(); authMsg("");
       try { await auth.signInWithEmailAndPassword(emailOf(chosen), $("#password").value); }

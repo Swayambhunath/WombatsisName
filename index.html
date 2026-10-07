@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.gstatic.com; style-src 'self'; img-src 'self' data:; connect-src https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.firebaseapp.com; frame-src https://*.firebaseapp.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.gstatic.com https://*.firebasedatabase.app https://*.firebaseio.com; style-src 'self'; img-src 'self' data:; connect-src https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.firebaseapp.com; frame-src https://*.firebaseapp.com https://*.firebasedatabase.app https://*.firebaseio.com; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Wer wird Wombatsi?</title>
 <link rel="stylesheet" href="style.css">
@@ -40,6 +40,7 @@
       <div>Angemeldet als <b id="accountName"></b></div>
       <button class="btn ghost" id="btnLogout">Abmelden</button>
       <p class="hint" id="partnerStatus"></p>
+      <p class="hint" id="ver"></p>
     </div>
     <div id="result"></div>
   </div></section>
