@@ -11,7 +11,7 @@ const FIREBASE_CONFIG = {
 };
 
 (() => {
-  const MAX_NAME = 40, VERSION = "2026-10-07.3";
+  const MAX_NAME = 40, VERSION = "2026-10-07.4";
 
   /* ---------- Hilfsfunktionen ---------- */
   const $ = s => document.querySelector(s);
@@ -49,6 +49,7 @@ const FIREBASE_CONFIG = {
     { id: "schwaeb", label: "Schwäbisch", test: x => x.tags.includes("schwaeb") },
     { id: "heilig", label: "Heilige", test: x => x.tags.includes("heilig") },
     { id: "irisch", label: "Irisch", test: x => x.tags.includes("irisch") || /irisch|gälisch/i.test(x.origin) },
+    { id: "retro", label: "Retro", test: x => x.tags.includes("retro") },
     { id: "nord", label: "Nordisch", test: x => /nordisch|skandinav|dänisch|schwedisch|friesisch|plattdeutsch|niederdeutsch/i.test(x.origin) },
     { id: "bibel", label: "Biblisch", test: x => /hebräisch|aramäisch/i.test(x.origin) },
     { id: "antik", label: "Antik", test: x => /lateinisch|griechisch/i.test(x.origin) },

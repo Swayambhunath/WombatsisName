@@ -6,31 +6,31 @@ Aaron|m|hebräisch|umstritten, u. a. „Berg der Stärke“
 Abel|m|hebräisch|„Hauch, Atem“
 Adam|m|hebräisch|„Mensch, der von der Erde Genommene“
 Adrian|m|lateinisch|„der aus Hadria (Stadt in Italien)“|heilig
-Albert|m|germanisch|„durch Adel glänzend“|heilig
+Albert|m|germanisch|„durch Adel glänzend“|heilig,retro
 Alexander|m|griechisch|„Beschützer der Männer“
-Alfred|m|altenglisch|„Ratgeber der Elfen“
+Alfred|m|altenglisch|„Ratgeber der Elfen“|retro
 Amir|m|arabisch|„Fürst, Befehlshaber“
 Ansgar|m|germanisch|„Speer der Götter (Asen)“
-Anselm|m|germanisch|„der von den Göttern Behelmte“, Schutz Gottes
-Anton|m|lateinisch|römischer Geschlechtername, Bedeutung unsicher|bay,heilig
+Anselm|m|germanisch|„der von den Göttern Behelmte“, Schutz Gottes|retro
+Anton|m|lateinisch|römischer Geschlechtername, Bedeutung unsicher|bay,heilig,retro
 Arne|m|skandinavisch|„Adler“
 Arthur|m|keltisch|Herkunft umstritten, evtl. „Bär“
 Aurel|m|lateinisch|„der Goldene“
-August|m|lateinisch|„der Erhabene, der Heilige“
+August|m|lateinisch|„der Erhabene, der Heilige“|retro
 Axel|m|skandinavisch|Form von Absalom, „Vater des Friedens“
 Balthasar|m|babylonisch|„Gott schütze den König“|bay,heilig
 Bastian|m|griechisch|Kurzform von Sebastian|bay,heilig
 Bela|m|ungarisch|„weiß, hell“
 Ben|m|hebräisch|„Sohn“, Kurzform von Benjamin
 Benedikt|m|lateinisch|„der Gesegnete“|bay,heilig
-Benno|m|germanisch|Kurzform von Bernhard, „stark wie ein Bär“|bay,heilig
+Benno|m|germanisch|Kurzform von Bernhard, „stark wie ein Bär“|bay,heilig,retro
 Bernhard|m|germanisch|„Bär“ + „stark“|schwaeb,heilig
 Bertram|m|germanisch|„glänzender Rabe“
 Bjarne|m|dänisch|„Bär“
 Björn|m|altnordisch|„Bär“
 Boris|m|slawisch|„Kampf, Kämpfer“
-Bruno|m|germanisch|„braun“ oder „Brünne (Rüstung)“
-Carl|m|germanisch|„freier Mann“, Form von Karl
+Bruno|m|germanisch|„braun“ oder „Brünne (Rüstung)“|retro
+Carl|m|germanisch|„freier Mann“, Form von Karl|retro
 Caspar|m|persisch|„Schatzmeister“|heilig
 Christian|m|lateinisch|„der Christ, Anhänger Christi“
 Christoph|m|griechisch|„Christusträger“|schwaeb,heilig
@@ -42,42 +42,42 @@ Daniel|m|hebräisch|„Gott ist mein Richter“|heilig
 Dario|m|persisch|„der das Gute besitzt“
 David|m|hebräisch|„der Geliebte“
 Dennis|m|griechisch|„Diener des Dionysos“|heilig
-Dietrich|m|germanisch|„Herrscher des Volkes“
+Dietrich|m|germanisch|„Herrscher des Volkes“|retro
 Dominik|m|lateinisch|„dem Herrn gehörend“|heilig
-Eduard|m|altenglisch|„Hüter des Reichtums“
+Eduard|m|altenglisch|„Hüter des Reichtums“|retro
 Elio|m|italienisch|von griechisch Helios, „Sonne“
 Elias|m|hebräisch|„Mein Gott ist Jahwe“
 Emanuel|m|hebräisch|„Gott ist mit uns“
-Emil|m|lateinisch|„der Eifrige, Nacheifernde“
+Emil|m|lateinisch|„der Eifrige, Nacheifernde“|retro
 Emilian|m|lateinisch|Ableitung von Emil, „der Eifrige“
 Enzo|m|italienisch|Kurzform von Lorenzo bzw. Heinz, „Herrscher des Hauses“
 Erik|m|altnordisch|„ewiger Herrscher“
-Ernst|m|germanisch|„Ernst, Kampf, Beständigkeit“|schwaeb
-Eugen|m|griechisch|„der Wohlgeborene, Edle“|schwaeb
-Ewald|m|germanisch|„der nach dem Gesetz Herrschende“
+Ernst|m|germanisch|„Ernst, Kampf, Beständigkeit“|schwaeb,retro
+Eugen|m|griechisch|„der Wohlgeborene, Edle“|schwaeb,retro
+Ewald|m|germanisch|„der nach dem Gesetz Herrschende“|retro
 Fabian|m|lateinisch|„aus dem Geschlecht der Fabier“|heilig
 Felix|m|lateinisch|„der Glückliche“|heilig
-Ferdinand|m|germanisch|„kühner Reisender“
+Ferdinand|m|germanisch|„kühner Reisender“|retro
 Fiete|m|plattdeutsch|Kurzform von Friedrich
 Finn|m|irisch|„der Blonde, der Weiße“|irisch
 Florian|m|lateinisch|„der Blühende“|bay,heilig
-Friedrich|m|germanisch|„Herrscher des Friedens“|schwaeb
-Fritz|m|deutsch|Kurzform von Friedrich|schwaeb
+Friedrich|m|germanisch|„Herrscher des Friedens“|schwaeb,retro
+Fritz|m|deutsch|Kurzform von Friedrich|schwaeb,retro
 Gabriel|m|hebräisch|„Gott ist meine Stärke“|heilig
 Georg|m|griechisch|„Landmann, Bauer“|bay,heilig
 Gerrit|m|niederländisch|Form von Gerhard, „Speer“ + „stark“
 Gregor|m|griechisch|„der Wachsame“|bay,heilig
-Gustav|m|schwedisch|„Stab der Goten“, „Kampfstab“
+Gustav|m|schwedisch|„Stab der Goten“, „Kampfstab“|retro
 Hannes|m|deutsch|Kurzform von Johannes|schwaeb
-Hans|m|deutsch|Kurzform von Johannes
+Hans|m|deutsch|Kurzform von Johannes|retro
 Harald|m|altnordisch|„Herrscher des Heeres“
-Heinrich|m|germanisch|„Herrscher des Hauses“
+Heinrich|m|germanisch|„Herrscher des Hauses“|retro
 Henning|m|niederdeutsch|Kurzform von Heinrich bzw. Johannes
 Henrik|m|skandinavisch|Form von Heinrich
 Henry|m|englisch|Form von Heinrich, „Herrscher des Hauses“
-Herbert|m|germanisch|„glänzendes Heer“
-Hermann|m|germanisch|„Heer“ + „Mann“|schwaeb
-Hugo|m|germanisch|„Geist, Verstand“
+Herbert|m|germanisch|„glänzendes Heer“|retro
+Hermann|m|germanisch|„Heer“ + „Mann“|schwaeb,retro
+Hugo|m|germanisch|„Geist, Verstand“|retro
 Ilias|m|griechisch|Form von Elias
 Jakob|m|hebräisch|„Gott schütze“, auch „Fersenhalter“|schwaeb,heilig
 Jan|m|niederländisch|Kurzform von Johannes
@@ -89,17 +89,17 @@ Joel|m|hebräisch|„Jahwe ist Gott“
 Johannes|m|hebräisch|„Gott ist gnädig“|schwaeb,heilig
 Jonas|m|hebräisch|„Taube“
 Jonathan|m|hebräisch|„Gott hat gegeben“
-Josef|m|hebräisch|„Gott fügt hinzu“|bay,heilig
+Josef|m|hebräisch|„Gott fügt hinzu“|bay,heilig,retro
 Joshua|m|hebräisch|„Gott ist Rettung“
 Jost|m|bretonisch|von Jodokus, „Kämpfer“|heilig
 Julian|m|lateinisch|„aus dem Geschlecht der Julier“|heilig
 Justus|m|lateinisch|„der Gerechte“|heilig
 Kaspar|m|persisch|„Schatzmeister“|bay,heilig
-Karl|m|germanisch|„freier Mann“|schwaeb
+Karl|m|germanisch|„freier Mann“|schwaeb,retro
 Kilian|m|irisch|„Mönch, Kirchenmann“|bay,heilig,irisch
 Klaus|m|deutsch|Kurzform von Nikolaus
 Knut|m|altnordisch|„Knoten“
-Konrad|m|germanisch|„kühner Ratgeber“|bay,schwaeb,heilig
+Konrad|m|germanisch|„kühner Ratgeber“|bay,schwaeb,heilig,retro
 Lars|m|skandinavisch|Form von Laurentius
 Lasse|m|skandinavisch|Kurzform von Lars/Laurentius
 Laurin|m|lateinisch|„der Lorbeer“, „aus Laurentum“
@@ -108,16 +108,16 @@ Lennard|m|germanisch|Form von Leonhard, „stark wie ein Löwe“
 Lenz|m|deutsch|alt für „Frühling“|bay
 Leo|m|lateinisch|„Löwe“
 Leon|m|griechisch|„Löwe“
-Leopold|m|germanisch|„kühner Mann des Volkes“|heilig
+Leopold|m|germanisch|„kühner Mann des Volkes“|heilig,retro
 Levi|m|hebräisch|„der Anhängliche, Verbundene“
 Liam|m|irisch|Kurzform von William, „Willensstarker Beschützer“|irisch
 Linus|m|griechisch|mythischer Sänger, Bedeutung unsicher
 Lorenz|m|lateinisch|„der aus Laurentum“, „der Lorbeerbekränzte“|bay,heilig
-Lothar|m|germanisch|„berühmter Krieger“
+Lothar|m|germanisch|„berühmter Krieger“|retro
 Louis|m|französisch|Form von Ludwig, „berühmter Kämpfer“
 Luan|m|albanisch|„Löwe“
 Luca|m|italienisch|Form von Lukas
-Ludwig|m|germanisch|„berühmter Kämpfer“|bay
+Ludwig|m|germanisch|„berühmter Kämpfer“|bay,retro
 Lukas|m|griechisch|„der aus Lucania“, „der Leuchtende“|heilig
 Magnus|m|lateinisch|„der Große“|heilig
 Malte|m|niederdeutsch|Herkunft umstritten
@@ -145,9 +145,9 @@ Nils|m|skandinavisch|Form von Nikolaus
 Noah|m|hebräisch|„Ruhe, Trost“
 Ole|m|skandinavisch|Form von Olaf, „Nachkomme der Vorfahren“
 Oliver|m|lateinisch|„Olivenbaum“, Herkunft umstritten
-Oskar|m|irisch|„Hirschfreund“|irisch
-Oswald|m|altenglisch|„Gottes Macht“
-Otto|m|germanisch|„Besitz, Reichtum“
+Oskar|m|irisch|„Hirschfreund“|irisch,retro
+Oswald|m|altenglisch|„Gottes Macht“|retro
+Otto|m|germanisch|„Besitz, Reichtum“|retro
 Pascal|m|französisch|„der zu Ostern Geborene“
 Patrick|m|lateinisch|„Adliger, Patrizier“|heilig,irisch
 Paul|m|lateinisch|„der Kleine, Bescheidene“|heilig
@@ -157,14 +157,14 @@ Piet|m|niederländisch|Form von Peter, „Fels“
 Quentin|m|lateinisch|„der Fünfte“
 Quirin|m|lateinisch|„Speerträger“|bay,heilig
 Rafael|m|hebräisch|„Gott heilt“|heilig
-Rainer|m|germanisch|„Ratgeber im Heer“
+Rainer|m|germanisch|„Ratgeber im Heer“|retro
 Raphael|m|hebräisch|„Gott heilt“|heilig
 Reinhard|m|germanisch|„kühn im Rat“
 Richard|m|germanisch|„mächtiger Herrscher“
 Robin|u|englisch|Kurzform von Robert, „glänzender Ruhm“
 Roman|m|lateinisch|„der Römer“
 Ruben|m|hebräisch|„Seht, ein Sohn!“
-Rudolf|m|germanisch|„ruhmreicher Wolf“
+Rudolf|m|germanisch|„ruhmreicher Wolf“|retro
 Samuel|m|hebräisch|„Gott hat erhört“
 Santiago|m|spanisch|von „Sant Iago“, Heiliger Jakob
 Sebastian|m|griechisch|„der Verehrte, Erhabene“|bay,heilig
@@ -189,9 +189,9 @@ Ulrich|m|germanisch|„Erbe“ + „Herrscher“|bay,schwaeb,heilig
 Valentin|m|lateinisch|„der Gesunde, Starke“|bay,heilig
 Victor|m|lateinisch|„der Sieger“
 Vincent|m|lateinisch|„der Siegende“|heilig
-Walter|m|germanisch|„Herrscher des Heeres“
-Werner|m|germanisch|„Heer“ + „Wächter“
-Wilhelm|m|germanisch|„Wille“ + „Helm, Schutz“|schwaeb,heilig
+Walter|m|germanisch|„Herrscher des Heeres“|retro
+Werner|m|germanisch|„Heer“ + „Wächter“|retro
+Wilhelm|m|germanisch|„Wille“ + „Helm, Schutz“|schwaeb,heilig,retro
 Xaver|m|baskisch|„neues Haus“|bay
 Yannick|m|bretonisch|Form von Jean, „Gott ist gnädig“
 Yusuf|m|arabisch|Form von Josef, „Gott fügt hinzu“
@@ -240,21 +240,21 @@ Taylor|u|englisch|„Schneider“
 Toni|u|lateinisch|Kurzform von Anton/Antonia|bay
 Yuki|u|japanisch|„Schnee“ oder „Glück“
 Zeno|u|griechisch|„der von Zeus Stammende“
-Alois|m|lateinisch|Form von Aloisius, latinisierte Form von Ludwig|bay,heilig
-Berthold|m|germanisch|„glänzender Herrscher“|schwaeb
-Burkhard|m|germanisch|„Burg“ + „stark“|schwaeb
-Eberhard|m|germanisch|„Eber“ + „stark“|schwaeb
+Alois|m|lateinisch|Form von Aloisius, latinisierte Form von Ludwig|bay,heilig,retro
+Berthold|m|germanisch|„glänzender Herrscher“|schwaeb,retro
+Burkhard|m|germanisch|„Burg“ + „stark“|schwaeb,retro
+Eberhard|m|germanisch|„Eber“ + „stark“|schwaeb,retro
 Emmeram|m|germanisch|Bayerischer Heiliger, Bedeutung unsicher|bay,heilig
-Franz|m|lateinisch|„der Franke“, Kurzform von Franziskus|bay,heilig
-Fridolin|m|germanisch|„Friede“ + „Schutz“|schwaeb,heilig
+Franz|m|lateinisch|„der Franke“, Kurzform von Franziskus|bay,heilig,retro
+Fridolin|m|germanisch|„Friede“ + „Schutz“|schwaeb,heilig,retro
 Girgl|m|bairisch|Mundartform von Georg, „Landmann“|bay
-Gerhard|m|germanisch|„Speer“ + „stark“|schwaeb
-Gotthilf|m|deutsch|„Gott hilf“, pietistischer Name|schwaeb
-Gotthold|m|deutsch|„Gott“ + „hold“|schwaeb
-Gottfried|m|germanisch|„Gottes Friede“|schwaeb
-Gottlieb|m|deutsch|„Gott lieb(end)“, pietistischer Name|schwaeb
+Gerhard|m|germanisch|„Speer“ + „stark“|schwaeb,retro
+Gotthilf|m|deutsch|„Gott hilf“, pietistischer Name|schwaeb,retro
+Gotthold|m|deutsch|„Gott“ + „hold“|schwaeb,retro
+Gottfried|m|germanisch|„Gottes Friede“|schwaeb,retro
+Gottlieb|m|deutsch|„Gott lieb(end)“, pietistischer Name|schwaeb,retro
 Hartmut|m|germanisch|„hart“ + „Mut“|schwaeb
-Helmut|m|germanisch|„Helm“ + „Mut“|schwaeb
+Helmut|m|germanisch|„Helm“ + „Mut“|schwaeb,retro
 Hias|m|bairisch|Mundartform von Matthias, „Geschenk Jahwes“|bay
 Hubertus|m|germanisch|„glänzend im Geist“|bay,heilig
 Ignaz|m|lateinisch|Form von Ignatius, „der Feurige“ (Herkunft umstritten)|bay,heilig
@@ -262,23 +262,23 @@ Immanuel|m|hebräisch|„Gott ist mit uns“|schwaeb
 Jörg|m|deutsch|Form von Georg, „Landmann“|schwaeb
 Kajetan|m|lateinisch|„aus Gaeta“|bay,heilig
 Korbinian|m|lateinisch|von corvus, „Rabe“|bay,heilig
-Kuno|m|germanisch|„kühn“|schwaeb
+Kuno|m|germanisch|„kühn“|schwaeb,retro
 Leonhard|m|germanisch|„stark wie ein Löwe“|bay,heilig
 Michel|m|schwäbisch|Form von Michael, „Wer ist wie Gott?“|schwaeb
 Michl|m|bairisch|Mundartform von Michael, „Wer ist wie Gott?“|bay
-Reinhold|m|germanisch|„im Rat herrschend“|schwaeb
+Reinhold|m|germanisch|„im Rat herrschend“|schwaeb,retro
 Albrecht|m|germanisch|„durch Adel glänzend“|schwaeb
 Rupert|m|germanisch|„ruhmglänzend“, Form von Ruprecht|bay,heilig
 Schorsch|m|schwäbisch|Mundartform von Georg, „Landmann“|schwaeb
-Sepp|m|bairisch|Mundartform von Josef, „Gott fügt hinzu“|bay
-Siegfried|m|germanisch|„Sieg“ + „Friede“|schwaeb
+Sepp|m|bairisch|Mundartform von Josef, „Gott fügt hinzu“|bay,retro
+Siegfried|m|germanisch|„Sieg“ + „Friede“|schwaeb,retro
 Tassilo|m|germanisch|bayerischer Herzog, Bedeutung unsicher|bay
-Theophil|m|griechisch|„Gottesfreund“|schwaeb
+Theophil|m|griechisch|„Gottesfreund“|schwaeb,retro
 Veit|m|lateinisch|Form von Vitus, „der Lebendige“|bay,heilig
 Vitus|m|lateinisch|„der Lebendige“|bay,heilig
 Wastl|m|bairisch|Mundartform von Sebastian, „der Verehrte“|bay
 Wolfgang|m|germanisch|„Wolf“ + „Gang, Weg“|bay,heilig
-Wolfram|m|germanisch|„Wolf“ + „Rabe“|schwaeb
+Wolfram|m|germanisch|„Wolf“ + „Rabe“|schwaeb,retro
 Avery|u|englisch|„Herrscher der Elfen“
 Chris|u|griechisch|Kurzform von Christian/Christine
 Dani|u|hebräisch|Kurzform von Daniel/Daniela
@@ -349,7 +349,7 @@ Silvester|m|lateinisch|„der Waldbewohner“|heilig
 Sixtus|m|lateinisch|„der Sechste“ (umstritten)|heilig
 Stanislaus|m|slawisch|„der Ruhm festigt“|heilig
 Thaddäus|m|aramäisch|„der Mutige“ (umstritten)|heilig
-Theodor|m|griechisch|„Geschenk Gottes“|heilig
+Theodor|m|griechisch|„Geschenk Gottes“|heilig,retro
 Urban|m|lateinisch|„der Städter, der Feine“|heilig
 Valerian|m|lateinisch|„der Gesunde, Starke“|heilig
 Vigilius|m|lateinisch|„der Wachsame“|heilig
@@ -402,33 +402,33 @@ Shane|m|irisch|Form von Sean, „Gott ist gnädig“|irisch
 Tadhg|m|irisch|„Dichter, Philosoph“ (umstritten)|irisch
 Tiernan|m|irisch|„Herr, Anführer“|irisch
 Armin|m|germanisch|Form von Hermann, „Heeresmann“
-Arnold|m|germanisch|„Adler“ + „walten, herrschen“
-Bernd|m|germanisch|Kurzform von Bernhard, „Bär“ + „stark“
+Arnold|m|germanisch|„Adler“ + „walten, herrschen“|retro
+Bernd|m|germanisch|Kurzform von Bernhard, „Bär“ + „stark“|retro
 Carsten|m|niederdeutsch|Form von Christian, „der Christ“
 Claas|m|niederdeutsch|Kurzform von Nikolaus, „Sieg des Volkes“
 Dirk|m|niederländisch|Kurzform von Dietrich, „Herrscher des Volkes“
 Eike|u|germanisch|Kurzform von Eckehard, „Schwertspitze“ + „stark“
-Elmar|m|germanisch|„edel“ + „berühmt“
-Emmerich|m|germanisch|„mächtiger Herrscher“
-Engelbert|m|germanisch|„Angeln“ (Volk) + „glänzend“
-Erwin|m|germanisch|„Heer“ + „Freund“
+Elmar|m|germanisch|„edel“ + „berühmt“|retro
+Emmerich|m|germanisch|„mächtiger Herrscher“|retro
+Engelbert|m|germanisch|„Angeln“ (Volk) + „glänzend“|retro
+Erwin|m|germanisch|„Heer“ + „Freund“|retro
 Falk|m|germanisch|„Falke“
 Frank|m|germanisch|„der Franke“, auch „der Freie“
-Frieder|m|deutsch|Kurzform von Friedrich
-Gernot|m|germanisch|„Speer“ + „Not, Kampf“
+Frieder|m|deutsch|Kurzform von Friedrich|retro
+Gernot|m|germanisch|„Speer“ + „Not, Kampf“|retro
 Gunnar|m|altnordisch|„Kampf“ + „Krieger“
-Gunther|m|germanisch|„Kampf“ + „Heer“
+Gunther|m|germanisch|„Kampf“ + „Heer“|retro
 Hagen|m|germanisch|„Einfriedung“; Gestalt im Nibelungenlied
 Hendrik|m|niederländisch|Form von Heinrich
 Holger|m|altnordisch|„Insel“ + „Speer“
 Ingo|m|germanisch|nach dem Gott Ingwaz
 Ivo|m|germanisch|„Eibe“
 Jannik|m|niederdeutsch|Form von Johannes, „Gott ist gnädig“
-Jürgen|m|niederdeutsch|Form von Georg, „Landmann“
+Jürgen|m|niederdeutsch|Form von Georg, „Landmann“|retro
 Kjell|m|altnordisch|„Kessel“
 Lennart|m|schwedisch|Form von Leonhard, „stark wie ein Löwe“
 Leonard|m|germanisch|„stark wie ein Löwe“
-Lutz|m|deutsch|Kurzform von Ludwig, „berühmter Kämpfer“
+Lutz|m|deutsch|Kurzform von Ludwig, „berühmter Kämpfer“|retro
 Manuel|m|hebräisch|Kurzform von Emanuel, „Gott ist mit uns“
 Marten|m|niederdeutsch|Form von Martin, „dem Mars geweiht“
 Merten|m|deutsch|Form von Martin, „dem Mars geweiht“
@@ -438,37 +438,37 @@ Nikolai|m|russisch|Form von Nikolaus, „Sieg des Volkes“
 Norman|m|germanisch|„Nordmann“
 Olaf|m|altnordisch|„Nachkomme der Vorfahren“
 Orlando|m|italienisch|Form von Roland, „berühmtes Land“
-Raimund|m|germanisch|„Rat“ + „Schutz“
+Raimund|m|germanisch|„Rat“ + „Schutz“|retro
 Ralf|m|germanisch|„Rat“ + „Wolf“
 Rasmus|m|dänisch|Form von Erasmus, „liebenswert“
-Roland|m|germanisch|„berühmt“ + „Land“
-Rolf|m|germanisch|Kurzform von Rudolf, „ruhmreicher Wolf“
+Roland|m|germanisch|„berühmt“ + „Land“|retro
+Rolf|m|germanisch|Kurzform von Rudolf, „ruhmreicher Wolf“|retro
 Rüdiger|m|germanisch|„Ruhm“ + „Speer“
 Sigurd|m|altnordisch|„Sieg“ + „Hüter“
 Sönke|m|friesisch|„Sohn“
 Thore|m|altnordisch|nach dem Gott Thor, „Donner“
 Tjark|m|friesisch|„Herrscher des Volkes“
 Torsten|m|altnordisch|„Thors Stein“
-Udo|m|germanisch|„Besitz, Erbe“
-Uwe|m|friesisch|Kurzform von Ove, „Besitz“ (umstritten)
+Udo|m|germanisch|„Besitz, Erbe“|retro
+Uwe|m|friesisch|Kurzform von Ove, „Besitz“ (umstritten)|retro
 Volker|m|germanisch|„Volk“ + „Heer“
 Waldemar|m|slawisch|„Herrschaft“ + „berühmt“
 Wim|m|niederländisch|Kurzform von Wilhelm
 Yves|m|französisch|„Eibe“
-Alfons|m|germanisch|„edel“ + „bereit“
+Alfons|m|germanisch|„edel“ + „bereit“|retro
 Alwin|m|germanisch|„Elf“ + „Freund“
 Arvid|m|altnordisch|„Adler“ + „Baum“
 Bendix|m|niederdeutsch|Form von Benedikt, „der Gesegnete“
 Benjamin|m|hebräisch|„Sohn der rechten Hand“, „Glückssohn“
 Bodo|m|germanisch|„Bote, Gebieter“
 Dagobert|m|germanisch|„Tag“ + „glänzend“
-Detlef|m|niederdeutsch|„Volk“ + „Erbe“
+Detlef|m|niederdeutsch|„Volk“ + „Erbe“|retro
 Diether|m|germanisch|„Volk“ + „Heer“
 Dietmar|m|germanisch|„Volk“ + „berühmt“
 Dorian|m|griechisch|„der Dorer“
 Edgar|m|altenglisch|„Besitz“ + „Speer“
 Edmund|m|altenglisch|„Besitz“ + „Schutz“
-Egon|m|germanisch|„Schwert(spitze)“
+Egon|m|germanisch|„Schwert(spitze)“|retro
 Ethan|m|hebräisch|„fest, beständig“
 Fabio|m|italienisch|Form von Fabian
 Gerd|m|germanisch|Kurzform von Gerhard, „Speer“ + „stark“
@@ -530,4 +530,45 @@ Frankie|u|englisch|Kurzform von Frank/Francis, „der Franke“
 Remi|u|französisch|„Ruderer“
 Kay|u|keltisch|Gestalt der Artussage, Herkunft umstritten
 Sami|u|hebräisch|Kurzform von Samuel, „Gott hat erhört“
+Loisl|m|bairisch|Mundartform von Alois, Form von Aloisius (Ludwig)|bay
+Sola|u|mehrere|Herkunft vielfältig, u. a. Yoruba „Ehre, Wohlstand“; lateinisch „allein“
+Willi|m|deutsch|Kurzform von Wilhelm, „Wille“ + „Helm, Schutz“|retro
+Tjorven|u|schwedisch|Figur aus Astrid Lindgrens „Wir Kinder auf Saltkrokan“, Herkunft unsicher
+Karli|u|deutsch|Koseform von Karl, „freier Mann“
+Anouk|u|niederländisch|Koseform von Anna, „die Begnadete“
+Loui|m|englisch|Form von Louis, „berühmter Kämpfer“
+Louie|m|englisch|Form von Louis, „berühmter Kämpfer“
+Maris|u|lateinisch|„des Meeres“; in Lettland männlicher Vorname
+Malou|u|französisch|Kurzform von Marie-Louise
+Tino|m|italienisch|Kurzform, z. B. von Valentino
+Tadeo|m|spanisch|Form von Thaddäus, „der Mutige“ (umstritten)
+Lumi|u|finnisch|„Schnee“
+Albie|m|englisch|Kurzform von Albert, „durch Adel glänzend“
+Alfie|m|englisch|Kurzform von Alfred, „Ratgeber der Elfen“
+Lenni|u|deutsch|Kurzform von Leonard/Leonie, „stark wie ein Löwe“
+Lino|m|italienisch|Kurzform, u. a. von Marcellino; auch Form von Linus
+Liv|u|skandinavisch|„Leben“
+Liljan|u|schwedisch|„die Lilie“
+Alvi|m|nordisch|Kurzform von Alvin/Alwin, „Elf“ + „Freund“ (umstritten)
+Tao|u|chinesisch|„der Weg“
+Tio|m|unsicher|Herkunft unsicher; spanisch „Onkel“
+Heinz|m|deutsch|Kurzform von Heinrich, „Herrscher des Hauses“|retro
+Horst|m|germanisch|„Gestrüpp, Gehölz“, auch „Adlerhorst“|retro
+Kurt|m|deutsch|Kurzform von Konrad, „kühner Ratgeber“|retro
+Rudi|m|deutsch|Kurzform von Rudolf, „ruhmreicher Wolf“|retro
+Manfred|m|germanisch|„Mann“ + „Friede“|retro
+Hubert|m|germanisch|„Geist“ + „glänzend“|retro
+Wilfried|m|germanisch|„Wille“ + „Friede“|retro
+Winfried|m|germanisch|„Freund“ + „Friede“|retro
+Dieter|m|deutsch|Kurzform von Dietrich, „Volk“ + „Heer“|retro
+Günter|m|germanisch|„Kampf“ + „Heer“|retro
+Eckhard|m|germanisch|„Schwert(spitze)“ + „stark“|retro
+Hartwig|m|germanisch|„stark“ + „Kampf“|retro
+Ottmar|m|germanisch|„Besitz“ + „berühmt“|retro
+Theobald|m|germanisch|„Volk“ + „kühn“|retro
+Traugott|m|deutsch|„auf Gott vertrauen“|retro
+Erhard|m|germanisch|„Ehre“ + „stark“|retro
+Arno|m|germanisch|Kurzform von Arnold, „Adler“|retro
+Gerold|m|germanisch|„Speer“ + „Herrschaft“|retro
+Leberecht|m|deutsch|„lebe recht“|retro
 `;
