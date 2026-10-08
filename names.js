@@ -671,4 +671,204 @@ Aurelio|m|italienisch|Form von Aurel, „der Goldene“|neu
 Silvan|m|lateinisch|Form von Silvanus, „der Waldbewohner“|neu
 Henner|m|niederdeutsch|Form von Heinrich, „Herrscher des Hauses“|neu
 Kjeld|m|dänisch|„Kessel“|neu
+Anderl|m|bairisch|Mundartform von Andreas, „der Mannhafte“|bay,neu2
+Hansl|m|bairisch|Koseform von Hans, „Gott ist gnädig“|bay,neu2
+Maxl|m|bairisch|Koseform von Max, „der Größte“|bay,neu2
+Seppi|m|bairisch|Koseform von Sepp (Josef), „Gott fügt hinzu“|bay,neu2
+Wiggerl|m|bairisch|Koseform von Ludwig, „berühmter Kämpfer“|bay,neu2
+Sebi|m|bairisch|Kurzform von Sebastian, „der Verehrte“|bay,neu2
+Flori|m|bairisch|Kurzform von Florian, „der Blühende“|bay,neu2
+Rupprecht|m|germanisch|Form von Ruprecht, „ruhmglänzend“|bay,neu2
+Ortwin|m|germanisch|„Speer“ + „Freund“|bay,neu2
+Lienhard|m|alemannisch|Mundartform von Leonhard, „stark wie ein Löwe“|bay,schwaeb,neu2
+Karle|m|schwäbisch|Mundartform von Karl, „freier Mann“|schwaeb,neu2
+Sepple|m|schwäbisch|Koseform von Josef, „Gott fügt hinzu“|schwaeb,neu2
+Gotthelf|m|deutsch|„Gott helfe“, pietistischer Name|schwaeb,neu2
+Matthes|m|schwäbisch|Mundartform von Matthias, „Geschenk Jahwes“|schwaeb,neu2
+Uli|m|schwäbisch|Kurzform von Ulrich, „Erbe“ + „Herrscher“|schwaeb,neu2
+Fritzle|m|schwäbisch|Koseform von Fritz (Friedrich), „Herrscher des Friedens“|schwaeb,neu2
+Arend|m|niederdeutsch|Form von Arnold, „Adler“ + „herrschen“|neu2
+Cord|m|niederdeutsch|Kurzform von Konrad, „kühner Ratgeber“|neu2
+Folke|m|altnordisch|„Volk“|neu2
+Hauke|m|friesisch|Kurzform von Hugo, „Geist, Verstand“|neu2
+Helmer|m|germanisch|„Helm“ + „berühmt“|neu2
+Henk|m|niederländisch|Kurzform von Hendrik (Heinrich)|neu2
+Ocke|m|friesisch|Kurzform von Namen mit „Ot“ (Besitz)|neu2
+Thees|m|niederdeutsch|Form von Matthias, „Geschenk Jahwes“|neu2
+Tido|m|friesisch|Kurzform von Dietrich, „Herrscher des Volkes“|neu2
+Wiard|m|friesisch|„Kampf“ + „stark“|neu2
+Knud|m|dänisch|Form von Knut, „Knoten“|neu2
+Hinnerk|m|niederdeutsch|Form von Heinrich, „Herrscher des Hauses“|neu2
+Johann|m|germanisch|Form von Johannes, „Gott ist gnädig“|neu2
+Jochen|m|deutsch|Kurzform von Joachim, „Gott richtet auf“|neu2
+Matz|m|deutsch|Kurzform von Matthias, „Geschenk Jahwes“|neu2
+Alexius|m|griechisch|„Beschützer“|heilig,neu2
+Anastasius|m|griechisch|„der Auferstandene“|heilig,neu2
+Bernward|m|germanisch|„Bär“ + „Hüter“|heilig,neu2
+Cassian|m|lateinisch|römischer Geschlechtername Cassius, Bedeutung umstritten|heilig,neu2
+Christophorus|m|griechisch|„Christusträger“|heilig,neu2
+Donatus|m|lateinisch|„der Geschenkte“|heilig,neu2
+Dominikus|m|lateinisch|„dem Herrn gehörend“|heilig,neu2
+Ephräm|m|hebräisch|„der Fruchtbare“|heilig,neu2
+Firmin|m|lateinisch|„der Feste, Starke“|heilig,neu2
+Florentin|m|lateinisch|„der Blühende“|heilig,neu2
+Fortunat|m|lateinisch|„der Glückliche“|heilig,neu2
+Franziskus|m|lateinisch|„der kleine Franke“|heilig,neu2
+Hadrian|m|lateinisch|„der aus Hadria“|heilig,neu2
+Heribert|m|germanisch|„Heer“ + „glänzend“|heilig,neu2
+Hippolyt|m|griechisch|„Pferdelöser“|heilig,neu2
+Ildefons|m|germanisch|„kampfbereit“|heilig,neu2
+Irenäus|m|griechisch|„der Friedliche“|heilig,neu2
+Kosmas|m|griechisch|„Ordnung, Schmuck“|heilig,neu2
+Laurenz|m|lateinisch|Form von Lorenz, „der Lorbeerbekränzte“|heilig,neu2
+Marcellus|m|lateinisch|„kleiner Mars“|heilig,neu2
+Maternus|m|lateinisch|„der Mütterliche“|heilig,neu2
+Medard|m|germanisch|„Kraft“ + „stark“|heilig,neu2
+Pantaleon|m|griechisch|„der in allem Löwe“|heilig,neu2
+Patrizius|m|lateinisch|„Adliger, Patrizier“|heilig,irisch,neu2
+Pelagius|m|griechisch|„der am Meer Lebende“|heilig,neu2
+Polykarp|m|griechisch|„der viel Frucht trägt“|heilig,neu2
+Rainald|m|germanisch|„Rat“ + „walten“|heilig,neu2
+Romuald|m|germanisch|„Ruhm“ + „walten“|heilig,neu2
+Stephanus|m|griechisch|„der Gekrönte“|heilig,neu2
+Timotheus|m|griechisch|„der Gott Ehrende“|heilig,neu2
+Jakobus|m|lateinisch|Form von Jakob, „Gott schütze“|heilig,neu2
+Abraham|m|hebräisch|„Vater der Menge“|neu2
+Absalom|m|hebräisch|„Vater des Friedens“|neu2
+Asher|m|hebräisch|„glücklich“|neu2
+Elischa|m|hebräisch|„Gott ist Rettung“|neu2
+Hiob|m|hebräisch|„der Angefeindete“ (umstritten)|neu2
+Isaak|m|hebräisch|„er lacht“|neu2
+Jesaja|m|hebräisch|„Jahwe ist Heil“|neu2
+Mose|m|hebräisch|„der aus dem Wasser Gezogene“, ägyptisch auch „Sohn“|neu2
+Nehemia|m|hebräisch|„Jahwe tröstet“|neu2
+Seth|m|hebräisch|„der Gesetzte, Ersatz“|neu2
+Simeon|m|hebräisch|„Gott hat gehört“|neu2
+Uri|u|hebräisch|„mein Licht“|neu2
+Aeneas|m|griechisch|„der Lobenswerte“|neu2
+Atlas|m|griechisch|„der Tragende“ (umstritten)|neu2
+Castor|m|griechisch|„der Glänzende“, auch „Biber“|neu2
+Claudius|m|lateinisch|„der Hinkende“|neu2
+Cäsar|m|lateinisch|römischer Beiname, Bedeutung umstritten|neu2
+Flavius|m|lateinisch|„der Blonde“|neu2
+Hektor|m|griechisch|„der Festhaltende“|neu2
+Helios|m|griechisch|„Sonne“|neu2
+Jason|m|griechisch|„der Heiler“|neu2
+Lysander|m|griechisch|„Befreier der Männer“|neu2
+Octavius|m|lateinisch|„der Achte“|neu2
+Orion|m|griechisch|Jäger des Sternbilds, Bedeutung unsicher|neu2
+Romeo|m|italienisch|„Pilger nach Rom“|neu2
+Romulus|m|lateinisch|„der Römer“|neu2
+Tiberius|m|lateinisch|„vom Fluss Tiber“|neu2
+Valerius|m|lateinisch|„der Gesunde, Starke“|neu2
+Zephyr|m|griechisch|„der Westwind“|neu2
+Augustus|m|lateinisch|„der Erhabene“|neu2
+Maximus|m|lateinisch|„der Größte“|neu2
+Bogdan|m|slawisch|„von Gott gegeben“|neu2
+Dragan|m|slawisch|„der Teure, Geliebte“|neu2
+Goran|m|südslawisch|„der Bergbewohner“|neu2
+Igor|m|altnordisch|„Ing“ (Gott) + „Krieger“|neu2
+Ivan|m|slawisch|Form von Johannes, „Gott ist gnädig“|neu2
+Jaro|m|slawisch|„Frühling“, „stark“|neu2
+Jakub|m|slawisch|Form von Jakob, „Gott schütze“|neu2
+Lev|m|slawisch|„Löwe“|neu2
+Matej|m|slawisch|Form von Matthias, „Geschenk Jahwes“|neu2
+Miro|m|slawisch|„Frieden“|neu2
+Mischa|m|russisch|Koseform von Michail, „Wer ist wie Gott?“|neu2
+Pavel|m|slawisch|Form von Paul, „der Kleine“|neu2
+Vladimir|m|slawisch|„Herrscher der Welt“ bzw. „Friedensherrscher“|neu2
+Wanja|m|russisch|Koseform von Iwan (Johannes)|neu2
+Wassili|m|griechisch|„der Königliche“|neu2
+Zoltan|m|ungarisch|„Sultan, Herrscher“|neu2
+Attila|m|gotisch|„Väterchen“|neu2
+Aksel|m|dänisch|Form von Axel, „Vater des Friedens“|neu2
+Asmus|m|norddeutsch|Form von Erasmus, „der Liebenswerte“|neu2
+Bo|m|altnordisch|„wohnen, Hausherr“|neu2
+Einar|m|altnordisch|„einsamer Krieger“|neu2
+Frederik|m|dänisch|Form von Friedrich, „Herrscher des Friedens“|neu2
+Gösta|m|schwedisch|Form von Gustav, „Stab der Goten“|neu2
+Halvard|m|altnordisch|„Fels“ + „Hüter“|neu2
+Ivar|m|altnordisch|„Bogen“ + „Krieger“|neu2
+Leif|m|altnordisch|„Erbe, Nachkomme“|neu2
+Ragnar|m|altnordisch|„Rat“ + „Heer“|neu2
+Rune|m|altnordisch|„Geheimnis, Rune“|neu2
+Sten|m|schwedisch|„Stein“|neu2
+Stig|m|altnordisch|„Wanderer“|neu2
+Trygve|m|altnordisch|„treu, zuverlässig“|neu2
+Ulrik|m|skandinavisch|Form von Ulrich, „Erbe“ + „Herrscher“|neu2
+Viggo|m|altnordisch|„Kampf“|neu2
+Vidar|m|altnordisch|„Waldkrieger“ (umstritten)|neu2
+Alasdair|m|schottisch|Form von Alexander, „Beschützer der Männer“|neu2
+Angus|m|schottisch|„einzige Stärke“ (umstritten)|neu2
+Bryn|u|walisisch|„Hügel“|neu2
+Craig|m|schottisch|„Fels“|neu2
+Duncan|m|schottisch|„dunkler Krieger“|neu2
+Evan|m|walisisch|Form von Johannes, „Gott ist gnädig“|neu2
+Gareth|m|walisisch|Bedeutung umstritten|neu2
+Gavin|m|walisisch|„weißer Falke“ (umstritten)|neu2
+Griffin|m|walisisch|„starker Herr“|neu2
+Gwyn|u|walisisch|„weiß, gesegnet“|neu2
+Hamish|m|schottisch|Form von Jakob, „Gott schütze“|neu2
+Iain|m|schottisch|Form von Johannes, „Gott ist gnädig“|neu2
+Lachlan|m|schottisch|„aus dem Land der Seen“|neu2
+Rhys|m|walisisch|„Eifer, Begeisterung“|neu2
+Taran|u|keltisch|„Donner“|neu2
+Adriano|m|italienisch|Form von Adrian, „der aus Hadria“|neu2
+Amadeus|m|lateinisch|„Gottlieb“|neu2
+Angelo|m|italienisch|„Engel, Bote“|neu2
+Carlo|m|italienisch|Form von Karl, „freier Mann“|neu2
+Francesco|m|italienisch|Form von Franziskus, „der kleine Franke“|neu2
+Guido|m|germanisch|„Wald“ oder „weit“ (umstritten)|neu2
+Leonardo|m|italienisch|Form von Leonhard, „stark wie ein Löwe“|neu2
+Massimo|m|italienisch|„der Größte“|neu2
+Mauro|m|italienisch|„der Maure“|neu2
+Salvatore|m|italienisch|„Retter“|neu2
+Umberto|m|germanisch|„Bär“ + „glänzend“ (umstritten)|neu2
+Alonso|m|spanisch|Form von Alfons, „edel“ + „bereit“|neu2
+Andrés|m|spanisch|Form von Andreas, „der Mannhafte“|neu2
+Ignacio|m|spanisch|Form von Ignaz, „der Feurige“ (umstritten)|neu2
+Rodrigo|m|germanisch|„Ruhm“ + „Herrscher“|neu2
+Sergio|m|lateinisch|römischer Geschlechtername, Bedeutung unsicher|neu2
+Tiago|m|portugiesisch|Form von Jakob, „Gott schütze“|neu2
+Duarte|m|portugiesisch|Form von Eduard, „Hüter des Reichtums“|neu2
+Gaston|m|französisch|„Fremder aus der Gascogne“ (umstritten)|neu2
+Jérôme|m|französisch|Form von Hieronymus, „der den heiligen Namen trägt“|neu2
+Maxime|u|französisch|Form von Maximus, „der Größte“|neu2
+Thibault|m|französisch|Form von Theobald, „Volk“ + „kühn“|neu2
+Yann|m|bretonisch|Form von Johannes, „Gott ist gnädig“|neu2
+Aspen|u|englisch|„Espe“|neu2
+Birk|u|deutsch|„Birke“|neu2
+Finch|u|englisch|„Fink“|neu2
+Ivy|u|englisch|„Efeu“|neu2
+Juniper|u|englisch|„Wacholder“|neu2
+Lark|u|englisch|„Lerche“|neu2
+Linden|u|englisch|„Linde“|neu2
+Moss|u|englisch|„Moos“|neu2
+Oak|u|englisch|„Eiche“|neu2
+Raven|u|englisch|„Rabe“|neu2
+Willow|u|englisch|„Weide“|neu2
+Haru|u|japanisch|„Frühling, Sonne“|neu2
+Hiro|u|japanisch|„weit, groß“|neu2
+Sora|u|japanisch|„Himmel“|neu2
+Ren|u|japanisch|je nach Schreibung „Lotus“ oder „Liebe“|neu2
+Emir|m|arabisch|„Fürst“|neu2
+Ali|m|arabisch|„der Erhabene“|neu2
+Aziz|m|arabisch|„der Mächtige, Geliebte“|neu2
+Bilal|m|arabisch|„Wasser, Erfrischung“|neu2
+Deniz|u|türkisch|„Meer“|neu2
+Ismail|m|arabisch|„Gott hat gehört“|neu2
+Samir|m|arabisch|„Gesprächspartner am Abend“|neu2
+Zayn|u|arabisch|„Schönheit, Anmut“|neu2
+Kofi|m|akan|„am Freitag geboren“|neu2
+Amani|u|swahili|„Frieden“|neu2
+Alvin|m|englisch|„Elf“ + „Freund“|neu2
+Archie|m|englisch|Kurzform von Archibald, „echt, kühn“|neu2
+Bertie|m|englisch|Kurzform von Albert, „durch Adel glänzend“|neu2
+Freddie|m|englisch|Kurzform von Frederick, „Herrscher des Friedens“|neu2
+George|m|englisch|Form von Georg, „Landmann“|neu2
+Harvey|m|englisch|„kampfbereit“|neu2
+Ollie|m|englisch|Kurzform von Oliver, „Olivenbaum“|neu2
+Oscar|m|englisch|Form von Oskar, „Hirschfreund“|neu2
+Stanley|m|englisch|„steinige Lichtung“|neu2
+Winston|m|englisch|„Ort des Wini“ (Freund)|neu2
 `;

@@ -11,7 +11,7 @@ const FIREBASE_CONFIG = {
 };
 
 (() => {
-  const MAX_NAME = 40, VERSION = "2026-10-07.6";
+  const MAX_NAME = 40, VERSION = "2026-10-08.1";
 
   /* ---------- Hilfsfunktionen ---------- */
   const $ = s => document.querySelector(s);
@@ -43,7 +43,8 @@ const FIREBASE_CONFIG = {
   /* ---------- Pakete ---------- */
   const PACKS = [
     { id: "all", label: "Alle", test: () => true },
-    { id: "neu", label: "Neuer Stapel", test: x => x.tags.includes("neu") },
+    { id: "neu2", label: "Stapel 2", test: x => x.tags.includes("neu2") },
+    { id: "neu", label: "Stapel 1", test: x => x.tags.includes("neu") },
     { id: "m", label: "Jungs", test: x => x.g === "m" },
     { id: "u", label: "Unisex", test: x => x.g === "u" },
     { id: "bay", label: "Bayerisch", test: x => x.tags.includes("bay") },
